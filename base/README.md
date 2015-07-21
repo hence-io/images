@@ -8,10 +8,10 @@ This is our minimal customized Alpine Linux base image based on
 It uses the [s6-overlay](https://github.com/just-containers/s6-overlay) as a process supervisor and for log rotation in derived images
 
 ## Supported tags and respective `Dockerfile` links
-* `0.0.1`, `latest` [base/Dockerfile](https://github.com/hence-io/images/blob/master/base/Dockerfile)
-* `0.0.1-onbuild` [base/onbuild/Dockerfile](https://github.com/hence-io/images/blob/master/base/onbuild/Dockerfile)
-* `0.0.1-buildpack` [base/buildpack/Dockerfile](https://github.com/hence-io/images/blob/master/base/buildpack/Dockerfile)
-* `0.0.1-buildpack-onbuild` [base/buildpack/onbuild/Dockerfile](https://github.com/hence-io/images/blob/master/base/buildpack/onbuild/Dockerfile)
+* `0.0.1`, `latest`&nbsp;&nbsp;[base/Dockerfile](https://github.com/hence-io/images/blob/master/base/Dockerfile)
+* `0.0.1-onbuild`&nbsp;&nbsp;[base/onbuild/Dockerfile](https://github.com/hence-io/images/blob/master/base/onbuild/Dockerfile)
+* `0.0.1-buildpack`&nbsp;&nbsp;[base/buildpack/Dockerfile](https://github.com/hence-io/images/blob/master/base/buildpack/Dockerfile)
+* `0.0.1-buildpack-onbuild`&nbsp;&nbsp;[base/buildpack/onbuild/Dockerfile](https://github.com/hence-io/images/blob/master/base/buildpack/onbuild/Dockerfile)
 
 ## Features
 Provides a flexible base for all other [hence](https://registry.hub.docker.com/repos/hence) docker images
