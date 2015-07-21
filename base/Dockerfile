@@ -18,6 +18,7 @@ RUN apk add --update \
   rsync \
   shadow@testing \
   sudo \
+  gettext \
   execline && \
   rm -rf /var/cache/apk/* && \
   curl -R -L -O https://github.com/just-containers/s6-overlay/releases/download/v1.13.0.0/s6-overlay-amd64.tar.gz && \
