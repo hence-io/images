@@ -3,8 +3,6 @@ MAINTAINER Clint Beacock <clint@therefore.ca>
 
 ENV HENCE_PREFIX=/opt/hence
 
-COPY rootfs /
-
 # Add common packages and create hence user and added specific requirements
 RUN apk add --update \
   ca-certificates \
@@ -29,6 +27,7 @@ RUN apk add --update \
   sed -i -e 's/\s*Defaults\s*secure_path\s*=/# Defaults secure_path=/' /etc/sudoers && \
   echo "hence ALL=NOPASSWD: ALL" >> /etc/sudoers
 
+COPY rootfs /
 COPY install.sh $HENCE_PREFIX/install.sh
 COPY hence-utils.sh $HENCE_PREFIX/hence-utils.sh
 COPY updates-ca-cert.pem $HENCE_PREFIX/updates-ca-cert.pem
