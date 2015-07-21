@@ -16,7 +16,7 @@ RUN apk add --update \
   tree \
   tar \
   rsync \
-  shadow \
+  shadow@testing \
   sudo \
   execline \
   rm -rf /var/cache/apk/* && \
