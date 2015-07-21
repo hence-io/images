@@ -1,4 +1,4 @@
-FROM hence/base:latest
+FROM hence/base:0.0.1
 MAINTAINER Clint Beacock <clint@therefore.ca>
 
 # Add common packages and create hence user and added specific requirements
