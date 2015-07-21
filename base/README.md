@@ -8,17 +8,11 @@ This is our minimal customized Alpine Linux base image based on
 It uses the [s6-overlay](https://github.com/just-containers/s6-overlay) as a process supervisor and for log rotation in derived images
 
 ## Authors
-
 * [Clint Beacock](https://github.com/clintbeacock)
 
-
 ## License
-
 MIT
 
-
 ## Copyright
+Copyright (c) 2015 [Therefore Interactive](http://therefore.ca)
 
-```
-Copyright (c) 2015 Therefore Interactive <http://therefore.ca/>
-```
