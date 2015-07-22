@@ -51,7 +51,7 @@ generate_conf_files() {
   # echo ""
   # echo "==> Copying default configuration to $BASE_PATH/conf..."
   # echo ""
-  cp -nr $BASE_PATH/conf.defaults/* $BASE_PATH/conf
+  cp -R $BASE_PATH/conf.defaults/* $BASE_PATH/conf
 }
 
 GITHUB_PAGE=https://github.com/hence-io/images/${HENCE_APP_NAME}

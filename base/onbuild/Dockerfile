@@ -1,4 +1,4 @@
-FROM hence/base:0.0.1
+FROM hence/base:latest
 MAINTAINER Clint Beacock <clint@therefore.ca>
 
 ONBUILD COPY help.txt $HENCE_PREFIX/help.txt

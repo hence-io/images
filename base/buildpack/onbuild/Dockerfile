@@ -1,4 +1,4 @@
-FROM hence/base:0.0.1-buildpack
+FROM hence/base:buildpack
 MAINTAINER Clint Beacock <clint@therefore.ca>
 
 ONBUILD COPY help.txt $HENCE_PREFIX/help.txt

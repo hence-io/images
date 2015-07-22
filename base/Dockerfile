@@ -1,7 +1,8 @@
 FROM alpine:3.2
 MAINTAINER Clint Beacock <clint@therefore.ca>
 
-ENV HENCE_PREFIX=/opt/hence
+ENV HENCE_PREFIX=/opt/hence \
+    HENCE_USER=hence
 
 COPY rootfs /
 
@@ -26,7 +27,7 @@ RUN apk add --update \
   printf '#!/bin/bash\n. $HENCE_PREFIX/hence-utils.sh\nprint_hence_help_page' > '/usr/bin/print-help' && \
   printf '#!/bin/bash\n. $HENCE_PREFIX/hence-utils.sh\ncheck_for_updates' > '/usr/bin/check-updates' && \
   chmod a+x /usr/bin/print-help /usr/bin/check-updates && \
-  adduser hence -D -g "" && \
+  adduser $HENCE_USER -D -g "" && \
   sed -i -e 's/\s*Defaults\s*secure_path\s*=/# Defaults secure_path=/' /etc/sudoers && \
   echo "hence ALL=NOPASSWD: ALL" >> /etc/sudoers
 

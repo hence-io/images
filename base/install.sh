@@ -4,6 +4,10 @@ if [ -f $HENCE_APP_DIR/scripts/ctl.sh  ]; then
   $HENCE_APP_DIR/scripts/ctl.sh stop > /dev/null
 fi
 
+if [ $HENCE_APP_DIR ]; then
+  mkdir -p $HENCE_APP_DIR
+fi
+
 if [ $HENCE_APP_VOL_PREFIX ]; then
   mkdir -p $HENCE_APP_VOL_PREFIX
 fi
