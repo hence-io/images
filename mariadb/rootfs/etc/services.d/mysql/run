@@ -62,8 +62,11 @@ EFIFO=/var/run/s6/mysql-error-log-fifo
 GFIFO=/var/run/s6/mysql-general-log-fifo
 SQFIFO=/var/run/s6/mysql-slow-query-log-fifo
 
+set -- "$@" --general-log-file=${EFIFO}
+set -- "$@" --slow-query-log-file=${EFIFO}
+
 # mysqld --general-log-file=${gfifo} --slow-query-log-file=${sqfifo}
 # mysqld
-# exec "$@ --general-log-file=${gfifo} --slow-query-log-file=${sqfifo}"
+# exec "$@ --general-log-file=${EFIFO} --slow-query-log-file=${EFIFO}"
 exec "$@"
 # exec su $HENCE_USER -c "$@ $PROGRAM_OPTIONS"

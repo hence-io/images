@@ -19,7 +19,7 @@ create_custom_database() {
 
 create_mysql_user() {
   if [ ! "$MARIADB_USER" ]; then
-    MARIADB_USER=root
+    MARIADB_USER=mysql
   fi
 
   if [ "$MARIADB_USER" != "root" ] && [ ! $MARIADB_DATABASE ]; then

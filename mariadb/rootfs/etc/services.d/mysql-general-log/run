@@ -1,3 +1,3 @@
-#!/usr/bin/with-contenv sh
+#!/usr/bin/execlineb -P
 
-exec logutil-service -f /var/run/s6/mysql-general-log-fifo $HENCE_APP_VOL_PREFIX/logs/mysql-general-logs
+import -u HENCE_APP_VOL_PREFIX logutil-service -f /var/run/s6/mysql-general-log-fifo ${HENCE_APP_VOL_PREFIX}/logs/mysql-general-logs
