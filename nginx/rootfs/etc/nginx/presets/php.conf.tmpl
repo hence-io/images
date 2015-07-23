@@ -6,7 +6,7 @@ index index.php index.html index.htm;
 disable_symlinks off;
 
 location / {
-  try_files $uri $uri/ /index.php?$args;
+  try_files ${DOLLAR}uri ${DOLLAR}uri/ /index.php?${DOLLAR}args;
 }
 
 location = /favicon.ico {
@@ -24,12 +24,16 @@ location ~ ^/(?:\.htaccess){
   deny all;
 }
 
-location ~ \.php(?:$|/) {
-  try_files $uri =404;
+location ~ /\.ht {
+    deny all;
+}
 
-  fastcgi_pass $NGINX_PHP_ALIAS:9000;
+location ~ \.php(?:${DOLLAR}|/) {
+  try_files ${DOLLAR}uri =404;
+
+  fastcgi_pass ${NGINX_PHP_ALIAS}:9000;
   fastcgi_index index.php;
-  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  fastcgi_param SCRIPT_FILENAME ${DOLLAR}document_root${DOLLAR}fastcgi_script_name;
   include /etc/nginx/fastcgi.conf;
   fastcgi_intercept_errors on;
 }

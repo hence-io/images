@@ -1,12 +1,12 @@
 listen 80;
 
-root /app/public;
+root /app;
 index index.php index.html index.htm;
 
 disable_symlinks off;
 
 location / {
-  try_files $uri $uri/ /index.php?$args;
+  try_files ${DOLLAR}uri ${DOLLAR}uri/ /index.php?${DOLLAR}args;
 }
 
 location = /favicon.ico {
@@ -20,36 +20,63 @@ location = /robots.txt {
   access_log off;
 }
 
-location ^~ /system/logs/ {
+location ~ ^/(?:\.htaccess){
   deny all;
 }
 
-location ^~ /templates/ {
+location ~ /\.ht {
   deny all;
 }
 
-location ^~ /system/bin/ {
-  deny all;
-}
+location ~ \.php(?:${DOLLAR}|/) {
+  try_files ${DOLLAR}uri =404;
 
-location ^~ /system/config/ {
-  deny all;
-}
-
-location ~* \.(tpl|html5|xhtml)$ {
-  deny all;
-}
-
-location ~ /\. {
-  deny all;
-}
-
-location ~ \.php(?:$|/) {
-  try_files $uri =404;
-
-  fastcgi_pass 127.0.0.1:9000;
+  fastcgi_pass ${NGINX_PHP_ALIAS}:9000;
   fastcgi_index index.php;
-  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  fastcgi_param SCRIPT_FILENAME ${DOLLAR}document_root${DOLLAR}fastcgi_script_name;
   include /etc/nginx/fastcgi.conf;
   fastcgi_intercept_errors on;
 }
+
+# This matters if you use drush
+location = /backup {
+  deny all;
+}
+
+location ~ \..*/.*\.php${DOLLAR} {
+  return 403;
+}
+
+location / {
+  # This is cool because no php is touched for static content
+  try_files ${DOLLAR}uri @rewrite;
+  index  index.html index.htm index.php;
+}
+
+location @rewrite {
+  # Some modules enforce no slash (/) at the end of the URL
+  # Else this rewrite block wouldn't be needed (GlobalRedirect)
+  rewrite ^/(.*)${DOLLAR} /index.php?q=${DOLLAR}1;
+}
+
+# Fighting with ImageCache? This little gem is amazing.
+location ~ ^/sites/.*/files/imagecache/ {
+  try_files ${DOLLAR}uri @rewrite;
+}
+
+# Catch image styles for D7 too.
+location ~ ^/sites/.*/files/styles/ {
+  try_files ${DOLLAR}uri @rewrite;
+}
+
+location ~* \.(js|css|png|jpg|jpeg|gif|ico)${DOLLAR} {
+  expires max;
+  log_not_found off;
+}
+
+# Needed for lastest versions of backup_migrate module
+location ^~ /backup_migrate/ {
+  internal;
+}
+
+client_max_body_size 100M;

@@ -1,10 +1,29 @@
 #!/bin/bash
 
-declare -x $NGINX_PHP_ALIAS
+export DOLLAR='$' # Needed to keep envsubst from destroying nginx variables in conf.tmpl files
+declare -x NGINX_PHP_ALIAS
+declare -x NGINX_PROXY_PATH
+declare -x NGINX_PROXY_HOST
+declare -x NGINX_PROXY_PORT
 
-if [ -z "${$NGINX_PHP_ALIAS}" ]
+if [ -z "${NGINX_PHP_ALIAS}" ]
 then
-  $NGINX_PHP_ALIAS=php
+  NGINX_PHP_ALIAS=php
+fi
+
+if [ -z "${NGINX_PROXY_PATH}" ]
+then
+  NGINX_PROXY_PATH=rest/api
+fi
+
+if [ -z "${NGINX_PROXY_HOST}" ]
+then
+  NGINX_PROXY_HOST=localhost
+fi
+
+if [ -z "${NGINX_PROXY_PORT}" ]
+then
+  NGINX_PROXY_PORT=3000
 fi
 
 chown -R $HENCE_APP_USER:www-data \
@@ -13,7 +32,7 @@ chown -R $HENCE_APP_USER:www-data \
 if [ -n "${CONFIG_PRESET}" ]
 then
   sed -i "s/presets\/default/presets\/${CONFIG_PRESET}/" \
-    $HENCE_APP_VOL_PREFIX/conf/nginx.conf
+    $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 
   envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.conf
 fi

@@ -12,12 +12,11 @@ ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
 ENV PATH=$HENCE_APP_DIR/sbin:$HENCE_PREFIX/common/bin:$PATH
 
 RUN apk add --update \
-  nginx \
+  nginx && \
   rm -rf /var/cache/apk/* && \
   rm -rf /etc/nginx/* && \
   chsh -s /bin/bash nginx
 
-COPY vhosts/* $BITNAMI_APP_DIR/conf.defaults/vhosts/
 COPY rootfs /
 
 RUN sh $HENCE_PREFIX/install.sh

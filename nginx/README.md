@@ -15,7 +15,8 @@ Builds on the [hence/base](https://registry.hub.docker.com/u/hence/base/) image 
 This image includes some configuration presets for various applications:
 
 * `php`: Preset to run a basic php app
-* `nodejs`: Preset to run a nodeJs app
+* `nodejs`: Preset to proxy to a running nodeJS app
+* `angular`: Preset to run an angularJS app
 * `drupal7`: Preset to run a [Drupal 7](http://drupal.org) app
 
 Use a preset by passing `-e CONFIG_PRESET=[name]` to docker run.
