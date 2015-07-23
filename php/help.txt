@@ -1,0 +1,15 @@
+  $HENCE_APP_NAME cheatsheet:
+
+    VOLUMES:
+      /app: Default work directory for your $HENCE_APP_NAME application.
+      $HENCE_APP_VOL_PREFIX/conf: Location of php-fpm.conf ($HENCE_APP_NAME config file).
+      $HENCE_APP_VOL_PREFIX/logs: Location of $HENCE_APP_NAME logs.
+
+    PORTS:
+      9000: Port exposed by container. Please configure your $HENCE_APP_NAME app to use this port.
+
+    COMMANDS:
+      print-help: Print this page.
+      check-updates: Check if a new version of the $HENCE_APP_NAME image is available.
+
+  Visit $GITHUB_PAGE for more information.
