@@ -4,7 +4,7 @@ MAINTAINER Clint Beacock <clint@therefore.ca>
 ENV HENCE_APP_DIR=$HENCE_PREFIX/mysql \
     HENCE_APP_NAME=mariadb \
     HENCE_APP_USER=mysql \
-    HENCE_APP_VERSION=5.5.44-0-r01
+    HENCE_APP_VERSION=5.5.43-r5
 
 ENV HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME \
     PATH=$HENCE_APP_DIR/bin:$PATH

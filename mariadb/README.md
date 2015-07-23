@@ -19,15 +19,15 @@ Data can also be volume-mounted for easy persistence
 ### Default supervised processes:
 * s6-svscan (as PID 1)
 * mysqld
-* mysql-error-logs (log fifo)
+* mysql-general-logs (log fifo)
 * mysql-error-logs (log fifo)
 * mysql-slow-query-logs (log fifo)
 
-## Available mysql environment variables
+## Available mysql environment variables [defaults]
 ```bash
 ENV MARIADB_USER [root] (recommend that you change this public deployment)
-ENV MARIADB_PASSWORD [**empty**] (recommend that you change this public deployment)
-ENV MARIADB_DATABASE [**empty**]
+ENV MARIADB_PASSWORD [] (recommend that you change this public deployment)
+ENV MARIADB_DATABASE []
 ```
 
 ## Available conf environment variables [defaults]
