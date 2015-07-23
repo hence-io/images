@@ -36,7 +36,7 @@ loaded by the server configuration directly.
 
 ## Available nginx environment variables [defaults]
 ```bash
-ENV CONFIG_PRESET []
+CONFIG_PRESET []
 ```
 
 ## Authors
