@@ -23,5 +23,3 @@
       check-updates: Check if a new version of the $HENCE_APP_NAME image is available.
 
   Visit $GITHUB_PAGE for more information.
-
-

@@ -10,7 +10,7 @@ ENV HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME \
     PATH=$HENCE_APP_DIR/bin:$PATH
 
 RUN apk --update add \
-    mariadb \
+    mariadb=$HENCE_APP_VERSION \
     mariadb-client && \
     rm -rf /var/cache/apk/* && \
     rm -rf /etc/mysql && \

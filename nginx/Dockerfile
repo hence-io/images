@@ -12,7 +12,7 @@ ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
 ENV PATH=$HENCE_APP_DIR/sbin:$HENCE_PREFIX/common/bin:$PATH
 
 RUN apk add --update \
-  nginx && \
+  nginx=$HENCE_APP_VERSION && \
   rm -rf /var/cache/apk/* && \
   rm -rf /etc/nginx/* && \
   chsh -s /bin/bash nginx
