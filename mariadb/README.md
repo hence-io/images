@@ -1,25 +1,36 @@
-# MariaDB
+# Hence MariaDB
 
-These are docker images for MariaDB database running on an
-[Debian container](https://registry.hub.docker.com/u/webhippie/debian/).
+[![](https://badge.imagelayers.io/hence/mariadb:latest.svg)](https://imagelayers.io/?images=hence/mariadb:latest 'Get your own badge on imagelayers.io')
 
+This is our minimal customized MariaDB image based on [alpine:3.2](https://registry.hub.docker.com/_/alpine/).
 
-## Usage
+It uses the [s6-overlay](https://github.com/just-containers/s6-overlay) as a process supervisor and for log rotation.
 
+## Supported tags and respective `Dockerfile` links
+* `latest`&nbsp;&nbsp;[mariadb/Dockerfile](https://github.com/hence-io/images/blob/master/mariadb/Dockerfile)
+
+## Features
+Builds on the [hence/base](https://registry.hub.docker.com/u/hence/base/) image to provide a minimally-sized, fully functional MariaDB environment.
+
+It includes both the mariadb server and client, and a sensible configuration to begin with.  Most my.conf variables can be modified at runtime through environment variables, or a custom conf file can me mounted as a volume.
+
+Data can also be volume-mounted for easy persistence
+
+### Default supervised processes:
+* s6-svscan (as PID 1)
+* mysqld
+* mysql-error-logs (log fifo)
+* mysql-error-logs (log fifo)
+* mysql-slow-query-logs (log fifo)
+
+## Available mysql environment variables
+```bash
+ENV MARIADB_USER [root] (recommend that you change this public deployment)
+ENV MARIADB_PASSWORD [**empty**] (recommend that you change this public deployment)
+ENV MARIADB_DATABASE [**empty**]
 ```
-docker run -ti --name mariadb webhippie/mariadb:latest
-```
 
-
-## Versions
-
-* [latest](https://github.com/dockhippie/mariadb/tree/master)
-  available as ```webhippie/mariadb:latest``` at
-  [Docker Hub](https://registry.hub.docker.com/u/webhippie/mariadb/)
-
-
-## Available environment variables
-
+## Available conf environment variables [defaults]
 ```bash
 ENV MARIADB_MAX_CONNECTIONS 100
 ENV MARIADB_CONNECT_TIMEOUT 5
@@ -59,39 +70,11 @@ ENV MARIADB_CHARACTER_SET_SERVER utf8
 ENV MARIADB_COLLATION_SERVER utf8_general_ci
 ```
 
-
-## Available management commands
-
-```bash
-Usage: manage <command> [<args>]
-
-Some useful manage commands are:
-   commands  List all available sub commands
-   create    Create a database and user
-   grant     Grant database access
-   remove    Drop a database and user
-   revoke    Revoke database access
-```
-
-
-## Contributing
-
-Fork -> Patch -> Push -> Pull Request
-
-
 ## Authors
-
-* [Thomas Boerger](https://github.com/tboerger)
-* [Felix Böhm](https://github.com/felixboehm)
-
+* [Clint Beacock](https://github.com/clintbeacock)
 
 ## License
-
 MIT
 
-
 ## Copyright
-
-```
-Copyright (c) 2015 Thomas Boerger <http://www.webhippie.de>
-```
+Copyright (c) 2015 [Therefore Interactive](http://therefore.ca)
