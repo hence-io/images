@@ -23,7 +23,6 @@ RUN sh $HENCE_PREFIX/install.sh && \
 
 COPY hence-utils-custom.sh /hence-utils-custom.sh
 
-# data & log volumes
-VOLUME ["$HENCE_APP_VOL_PREFIX/data", "$HENCE_APP_VOL_PREFIX/conf", "$HENCE_APP_VOL_PREFIX/logs/mysql-general-logs", "$HENCE_APP_VOL_PREFIX/logs/mysql-error-logs", "$HENCE_APP_VOL_PREFIX/logs/mysql-slow-query-logs"]
-
 EXPOSE 3306
+
+VOLUME ["$HENCE_APP_VOL_PREFIX/data", "$HENCE_APP_VOL_PREFIX/conf", "$HENCE_APP_VOL_PREFIX/logs/mysql-general-logs", "$HENCE_APP_VOL_PREFIX/logs/mysql-error-logs", "$HENCE_APP_VOL_PREFIX/logs/mysql-slow-query-logs"]

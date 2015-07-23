@@ -35,4 +35,5 @@ COPY install.sh $HENCE_PREFIX/install.sh
 COPY hence-utils.sh $HENCE_PREFIX/hence-utils.sh
 
 ENTRYPOINT ["/init"]
+
 CMD []

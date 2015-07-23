@@ -22,5 +22,7 @@ COPY rootfs /
 RUN sh $HENCE_PREFIX/install.sh
 
 EXPOSE 80 443
+
 VOLUME ["/etc/nginx/custom.d", "/app", "$HENCE_APP_VOL_PREFIX/conf", "$HENCE_APP_VOL_PREFIX/logs/nginx-access-logs", "$HENCE_APP_VOL_PREFIX/logs/nginx-error-logs"]
+
 WORKDIR /app
