@@ -16,7 +16,7 @@ then
   ./setup
 fi
 
-sudo chown -R $HENCE_APP_USER:$HENCE_APP_USER \
+chown -R $HENCE_APP_USER:$HENCE_APP_USER \
   $HENCE_APP_VOL_PREFIX/conf/ \
   $HENCE_APP_VOL_PREFIX/logs/ \
   /app || true

@@ -3,6 +3,7 @@
 mkdir /app
 mkdir -p $HENCE_APP_DIR/conf
 mkdir -p $HENCE_APP_DIR/conf.defaults
+mkdir -p $HENCE_APP_DIR/logs
 
 # set up default config
 cp -R /etc/php/* $HENCE_APP_DIR/conf.defaults

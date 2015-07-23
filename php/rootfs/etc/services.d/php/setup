@@ -22,9 +22,12 @@ find $HENCE_APP_VOL_PREFIX/conf/custom.d -mindepth 1 -type f -print0 | while rea
 do
   RELATIVENAME=${TEMPLATE//\/etc\/php\/custom.d\//}
 
-  ln -sf \
-    "$HENCE_APP_VOL_PREFIX/conf/conf.d/${RELATIVENAME}" \
-    "$HENCE_APP_VOL_PREFIX/conf/custom.d/${RELATIVENAME}"
+  if [ "$TEMPLATE" != "$HENCE_APP_VOL_PREFIX/conf/custom.d/.keep" ]
+  then
+    ln -sf \
+      "$HENCE_APP_VOL_PREFIX/conf/conf.d/${RELATIVENAME}" \
+      "$HENCE_APP_VOL_PREFIX/conf/custom.d/${TEMPLATE}"
+  fi
 done
 
 if [ -z "${PHP_MEMORY_LIMIT}" ]

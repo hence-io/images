@@ -38,10 +38,10 @@ RUN apk --update add \
     rm -rf /var/cache/apk/* && \
     rm -rf /etc/php/*
 
+COPY rootfs /
+
 RUN curl -sS https://getcomposer.org/installer \
   | php -- --install-dir=/usr/bin --filename=composer
-
-COPY rootfs /
 
 RUN sh $HENCE_PREFIX/install.sh
 

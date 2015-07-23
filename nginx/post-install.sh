@@ -9,8 +9,6 @@ mkdir -p $HENCE_APP_DIR/logs
 cp -R /etc/nginx/* $HENCE_APP_DIR/conf.defaults
 cp -R /etc/html/* $HENCE_APP_DIR/html.defaults
 
-cd $HENCE_APP_DIR
-
 # Setup mount point symlinks
 ln -s $HENCE_APP_DIR/conf $HENCE_APP_VOL_PREFIX/conf
 ln -s $HENCE_APP_DIR/logs $HENCE_APP_VOL_PREFIX/logs
