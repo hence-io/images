@@ -48,9 +48,9 @@ generate_conf_files() {
     BASE_PATH=$HENCE_APP_DIR
   fi
 
-  # echo ""
-  # echo "==> Copying default configuration to $BASE_PATH/conf..."
-  # echo ""
+  echo ""
+  echo "==> Copying default configuration to $BASE_PATH/conf..."
+  echo ""
   cp -R $BASE_PATH/conf.defaults/* $BASE_PATH/conf
 }
 
