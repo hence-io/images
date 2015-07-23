@@ -1,0 +1,21 @@
+#!/bin/bash
+
+declare -x $NGINX_PHP_ALIAS
+
+if [ -z "${$NGINX_PHP_ALIAS}" ]
+then
+  $NGINX_PHP_ALIAS=php
+fi
+
+chown -R $HENCE_APP_USER:www-data \
+  /var/lib/nginx
+
+if [ -n "${CONFIG_PRESET}" ]
+then
+  sed -i "s/presets\/default/presets\/${CONFIG_PRESET}/" \
+    $HENCE_APP_VOL_PREFIX/conf/nginx.conf
+
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.conf
+fi
+
+envsubst < $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/nginx.conf

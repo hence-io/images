@@ -1,0 +1,27 @@
+FROM hence/base:onbuild
+MAINTAINER Clint Beacock <clint@therefore.ca>
+
+ENV HENCE_APP_NAME=nginx \
+    HENCE_APP_USER=nginx \
+    HENCE_APP_VERSION=1.8.0-r1 \
+    HENCE_APP_ALIAS=app
+
+ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
+    HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME
+
+ENV PATH=$HENCE_APP_DIR/sbin:$HENCE_PREFIX/common/bin:$PATH
+
+RUN apk add --update \
+  nginx \
+  rm -rf /var/cache/apk/* && \
+  rm -rf /etc/nginx/* && \
+  chsh -s /bin/bash nginx
+
+COPY vhosts/* $BITNAMI_APP_DIR/conf.defaults/vhosts/
+COPY rootfs /
+
+RUN sh $HENCE_PREFIX/install.sh
+
+EXPOSE 80 443
+VOLUME ["/etc/nginx/custom.d", "/app", "$HENCE_APP_VOL_PREFIX/conf", "$HENCE_APP_VOL_PREFIX/logs/nginx-access-logs", "$HENCE_APP_VOL_PREFIX/logs/nginx-error-logs"]
+WORKDIR /app
