@@ -33,7 +33,6 @@ RUN apk add --update \
 
 COPY install.sh $HENCE_PREFIX/install.sh
 COPY hence-utils.sh $HENCE_PREFIX/hence-utils.sh
-COPY updates-ca-cert.pem $HENCE_PREFIX/updates-ca-cert.pem
 
 ENTRYPOINT ["/init"]
 CMD []

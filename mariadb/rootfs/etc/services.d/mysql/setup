@@ -1,8 +1,5 @@
 #!/bin/bash
 
-chown -R mysql:mysql \
-  $HENCE_APP_VOL_PREFIX/data
-
 declare -x MARIADB_MAX_CONNECTIONS
 declare -x MARIADB_CONNECT_TIMEOUT
 declare -x MARIADB_WAIT_TIMEOUT

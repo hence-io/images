@@ -92,13 +92,15 @@ print_hence_help_page() {
 }
 
 # Checks for any updates for this Docker image
+#
+# NOTE:  Doesn't currently work for non-bitnami images.  We need to use the docker registry to use this.
+# curl https://registry.hub.docker.com/v1/repositories/hence/mariadb/tags/latest | python -mjson.tool
 check_for_updates() {
   UPDATE_SERVER="https://container.checkforupdates.com"
   ORIGIN="DHR"
 
-  RESPONSE=$(curl -s --connect-timeout 5 \
-    --cacert $HENCE_PREFIX/updates-ca-cert.pem \
-    "$UPDATE_SERVER/api/v1?image=$HENCE_APP_NAME&version=$HENCE_APP_VERSION&origin=DHR" \
+  RESPONSE=$(curl -sk --connect-timeout 5 \
+    "$UPDATE_SERVER/api/v1?image=$HENCE_APP_NAME&version=$HENCE_APP_VERSION&origin=ORIGIN" \
     -w "|%{http_code}")
 
   VERSION=$(echo $RESPONSE | cut -d '|' -f 1)
