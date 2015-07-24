@@ -14,6 +14,7 @@ Mount your desired data as a volume to `/data` in the container
 
 ## Why not busybox?
 Busybox is the standard goto for data-only containers, and is smaller that alpine linux (2MB vs 5MB).  The reason for choosing alpine linux is twofold:
+
 * We're already using it for our base image, so we get it 'for free' as far as filesystem usage is concerned.  Using busybox would actually take up more space (a whopping 2MB :P )
 * Alpine is a fuller-featured distro.  If, for any reason down the road, we need to perform any specialized one-off tasks in the container, we could easily accomplish almost anything in alpine, and have it's full-featured package manager `apk` at our disposal.
 
