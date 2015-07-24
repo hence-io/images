@@ -1,5 +1,6 @@
 daemon off;
-user nginx nginx;
+#user nginx nginx;
+user $HENCE_APP_USER;
 
 error_log stderr warn;
 
@@ -14,8 +15,8 @@ http {
   access_log /dev/stdout;
   sendfile on;
 
-  include /etc/nginx/mime.types;
-  include /etc/nginx/fastcgi.conf;
+  include $HENCE_APP_VOL_PREFIX/conf/mime.types;
+  include $HENCE_APP_VOL_PREFIX/conf/fastcgi.conf;
 
   default_type application/octet-stream;
 

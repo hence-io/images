@@ -3,8 +3,6 @@
 set -e
 source $HENCE_PREFIX/hence-utils.sh
 
-print_welcome_page
-
 set -- nginx
 
 set -- "$@" -c $HENCE_APP_VOL_PREFIX/conf/nginx.conf
@@ -26,5 +24,7 @@ chown -R $HENCE_APP_USER:$HENCE_APP_USER \
   $HENCE_APP_VOL_PREFIX/logs/ \
   $HENCE_APP_VOL_PREFIX/conf/ \
   /app || true
+
+print_welcome_page
 
 exec "$@"

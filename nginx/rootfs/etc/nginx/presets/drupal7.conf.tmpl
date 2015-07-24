@@ -29,7 +29,7 @@ location ~ \.php(?:${DOLLAR}|/) {
 
   fastcgi_pass ${NGINX_PHP_ALIAS}:9000;
   fastcgi_index index.php;
-  include /etc/nginx/fastcgi.conf;
+  include $HENCE_APP_VOL_PREFIX/conf/fastcgi.conf;
   fastcgi_intercept_errors on;
 }
 
