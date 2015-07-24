@@ -33,7 +33,6 @@ location ~ \.php(?:${DOLLAR}|/) {
 
   fastcgi_pass ${NGINX_PHP_ALIAS}:9000;
   fastcgi_index index.php;
-  fastcgi_param SCRIPT_FILENAME ${DOLLAR}document_root${DOLLAR}fastcgi_script_name;
   include /etc/nginx/fastcgi.conf;
   fastcgi_intercept_errors on;
 }

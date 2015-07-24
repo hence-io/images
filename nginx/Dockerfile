@@ -2,7 +2,8 @@ FROM hence/base:onbuild
 MAINTAINER Clint Beacock <clint@therefore.ca>
 
 ENV HENCE_APP_NAME=nginx \
-    HENCE_APP_USER=nginx \
+    HENCE_APP_USER=hence \
+    # HENCE_APP_USER=nginx \
     HENCE_APP_VERSION=1.8.0-r1 \
     HENCE_APP_ALIAS=app
 
