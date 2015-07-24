@@ -96,31 +96,32 @@ print_hence_help_page() {
 # NOTE:  Doesn't currently work for non-bitnami images.  We need to use the docker registry to use this.
 # curl https://registry.hub.docker.com/v1/repositories/hence/mariadb/tags/latest | python -mjson.tool
 check_for_updates() {
-  UPDATE_SERVER="https://container.checkforupdates.com"
-  ORIGIN="DHR"
+  return
+  # UPDATE_SERVER="https://container.checkforupdates.com"
+  # ORIGIN="DHR"
 
-  RESPONSE=$(curl -sk --connect-timeout 5 \
-    "$UPDATE_SERVER/api/v1?image=$HENCE_APP_NAME&version=$HENCE_APP_VERSION&origin=ORIGIN" \
-    -w "|%{http_code}")
+  # RESPONSE=$(curl -sk --connect-timeout 5 \
+  #   "$UPDATE_SERVER/api/v1?image=$HENCE_APP_NAME&version=$HENCE_APP_VERSION&origin=ORIGIN" \
+  #   -w "|%{http_code}")
 
-  VERSION=$(echo $RESPONSE | cut -d '|' -f 1)
-  if [[ ! $VERSION =~ [0-9.-] ]]; then
-    return
-  fi
+  # VERSION=$(echo $RESPONSE | cut -d '|' -f 1)
+  # if [[ ! $VERSION =~ [0-9.-] ]]; then
+  #   return
+  # fi
 
-  STATUS=$(echo $RESPONSE | cut -d '|' -f 2)
+  # STATUS=$(echo $RESPONSE | cut -d '|' -f 2)
 
-  if [ "$STATUS" = "200" ]; then
-    COLOR="\e[0;30;42m"
-    MSG="Your container is up to date!"
-  elif [ "$STATUS" = "201" ]; then
-    COLOR="\e[0;30;43m"
-    MSG="New version available: run docker pull hence/$HENCE_APP_NAME:$VERSION to update."
-  fi
+  # if [ "$STATUS" = "200" ]; then
+  #   COLOR="\e[0;30;42m"
+  #   MSG="Your container is up to date!"
+  # elif [ "$STATUS" = "201" ]; then
+  #   COLOR="\e[0;30;43m"
+  #   MSG="New version available: run docker pull hence/$HENCE_APP_NAME:$VERSION to update."
+  # fi
 
-  if [ "$MSG" ]; then
-    printf "\n$COLOR*** $MSG ***\e[0m\n\n"
-  fi
+  # if [ "$MSG" ]; then
+  #   printf "\n$COLOR*** $MSG ***\e[0m\n\n"
+  # fi
 }
 
 # We call tail before the logs are there so we need
