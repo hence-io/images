@@ -5,10 +5,6 @@ index index.php index.html index.htm;
 
 disable_symlinks off;
 
-location / {
-  try_files ${DOLLAR}uri ${DOLLAR}uri/ /index.php?${DOLLAR}args;
-}
-
 location = /favicon.ico {
   log_not_found off;
   access_log off;
