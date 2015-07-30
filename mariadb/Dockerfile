@@ -1,4 +1,4 @@
-FROM hence/base:onbuild
+FROM hence/base:3.2-onbuild
 MAINTAINER Clint Beacock <clint@therefore.ca>
 
 ENV HENCE_APP_DIR=$HENCE_PREFIX/mysql \
