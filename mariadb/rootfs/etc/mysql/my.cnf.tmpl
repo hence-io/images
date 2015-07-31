@@ -58,7 +58,7 @@ log_slow_verbosity = ${MARIADB_LOG_SLOW_VERBOSITY}
 #sql_mode = NO_ENGINE_SUBSTITUTION,TRADITIONAL
 
 default_storage_engine = InnoDB
-#innodb_log_file_size = 50M
+innodb_log_file_size = ${MARIADB_INNODB_LOG_FILE_SIZE}
 innodb_buffer_pool_size = ${MARIADB_INNODB_BUFFER_POOL_SIZE}
 innodb_log_buffer_size = ${MARIADB_LOG_BUFFER_SIZE}
 innodb_file_per_table = ${MARIADB_FILE_PER_TABLE}
