@@ -1,0 +1,19 @@
+  $HENCE_APP_NAME cheatsheet:
+
+    ENVIRONMENT VARIABLES:
+      MEMCACHED_MAXMEM: Max memory used (default: 64).
+      MEMCACHED_MAXCONN: Max connections allowed (default: 1024).
+      MEMCACHED_THREADS: Number of threads (default: 4).
+
+    VOLUMES:
+      $HENCE_APP_VOL_PREFIX/data: "Location of memcached data."
+      $HENCE_APP_VOL_PREFIX/logs: "Location of general and error logs."
+
+    PORTS:
+      11211: Default memcached port.
+
+    COMMANDS:
+      print-help: Print this page.
+      check-updates: Check if a new version of the $HENCE_APP_NAME image is available.
+
+  Visit $GITHUB_PAGE for more information.

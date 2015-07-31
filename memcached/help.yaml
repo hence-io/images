@@ -1,0 +1,9 @@
+environment_variables:
+  MEMCACHED_MAXMEM: "Max memory used (default: 64)."
+  MEMCACHED_MAXCONN: "Max connections allowed (default: 1024)."
+  MEMCACHED_THREADS: "Number of threads (default: 4)."
+volumes:
+  $HENCE_APP_VOL_PREFIX/data: "Location of memcached data."
+  $HENCE_APP_VOL_PREFIX/logs: "Location of general and error logs."
+ports:
+  11211: "Default memcached port."

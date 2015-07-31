@@ -1,0 +1,37 @@
+#!/usr/bin/with-contenv sh
+
+set -e
+source $HENCE_PREFIX/hence-utils.sh
+
+set -- memcached
+
+set -- "$@" -vv -u memcached -l 0.0.0.0
+
+if [ -n "${MEMCACHED_MAXMEM}" ]
+then
+  set -- "$@" -m ${MEMCACHED_MAXMEM}
+else
+  set -- "$@" -m 64
+fi
+
+if [ -n "${MEMCACHED_MAXCONN}" ]
+then
+  set -- "$@" -c ${MEMCACHED_MAXCONN}
+else
+  set -- "$@" -c 1024
+fi
+
+if [ -n "${MEMCACHED_THREADS}" ]
+then
+  set -- "$@" -t ${MEMCACHED_THREADS}
+else
+  set -- "$@" -t 4
+fi
+
+chown -R $HENCE_APP_USER:$HENCE_APP_USER \
+  $HENCE_APP_VOL_PREFIX/logs/ \
+  $HENCE_APP_VOL_PREFIX/data/ || true
+
+print_welcome_page
+
+exec "$@"
