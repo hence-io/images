@@ -23,8 +23,8 @@ RUN apk add --update \
 
 # Expose reference to JAVA_HOME and
 # Adjust PATH to include all JDK related executables
-ENV JAVA_HOME /usr/lib/jvm/java-1.7-openjdk \
-    PATH $JAVA_HOME/bin:$PATH
+ENV JAVA_HOME=/usr/lib/jvm/java-1.7-openjdk \
+    PATH=$JAVA_HOME/bin:$PATH
 
 COPY rootfs /
 
