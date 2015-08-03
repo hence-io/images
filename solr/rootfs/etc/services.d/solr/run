@@ -1,0 +1,28 @@
+#!/usr/bin/with-contenv sh
+
+set -e
+source $HENCE_PREFIX/hence-utils.sh
+
+set -- /opt/solr/bin/solr
+
+set -- "$@" -f
+
+if [ -f ./setup ]
+then
+  ./setup
+fi
+
+if [ ! "$(ls -A $HENCE_APP_VOL_PREFIX/conf)" ]; then
+  generate_conf_files
+  ln -s $HENCE_APP_DIR/conf/basic /opt/solr/server/solr/basic
+fi
+
+chown -R $HENCE_APP_USER:$HENCE_APP_USER \
+  $HENCE_APP_VOL_PREFIX/logs/ \
+  $HENCE_APP_VOL_PREFIX/conf/ \
+  /opt/solr \
+  /opt/$SOLR || true
+
+print_welcome_page
+
+exec "$@"
