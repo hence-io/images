@@ -1,6 +1,9 @@
 FROM hence/base:3.2-onbuild
 MAINTAINER Clint Beacock <clint@therefore.ca>
 
+ONBUILD COPY help.txt $HENCE_PREFIX/help.txt
+ONBUILD COPY post-install.sh /tmp/post-install.sh
+
 ENV HENCE_APP_DIR=$HENCE_PREFIX/java \
     HENCE_APP_NAME=java \
     HENCE_APP_USER=hence \
