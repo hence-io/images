@@ -21,7 +21,7 @@ Use a preset by passing `-e CONFIG_PRESET=[name]` to docker run.
 
 In addition to that, you can provide your own config files by mounting them at `$HENCE_APP_VOL_PREFIX/conf`
 
-By default, a core will be automatically created for you if you use a preset or mount your own configuration files.  The core name can be controlled by altering the `CONFIG_PRESET_PATH` environment variable.
+By default, a core will be automatically created for you. The core name can be controlled by altering the `CONFIG_PRESET_PATH` environment variable.
 
 ### Default supervised processes:
 * s6-svscan (as PID 1)
