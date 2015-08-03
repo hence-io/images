@@ -25,13 +25,14 @@ Data can also be volume-mounted for easy persistence
 
 ## Available mysql environment variables [defaults]
 ```bash
-MARIADB_USER [root] (we recommend that you change this for public deployments)
-MARIADB_PASSWORD [] (we recommend that you change this for public deployments)
+MARIADB_USER [root] (Change this for public deployments)
+MARIADB_PASSWORD [] (Change this for public deployments)
 MARIADB_DATABASE []
 ```
 
 ## Available conf environment variables [defaults]
 ```bash
+MARIADB_BIND_ADDRESS [0.0.0.0]
 MARIADB_MAX_CONNECTIONS [100]
 MARIADB_CONNECT_TIMEOUT [5]
 MARIADB_WAIT_TIMEOUT [600]

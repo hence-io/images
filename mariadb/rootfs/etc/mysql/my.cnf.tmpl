@@ -18,7 +18,9 @@ tmpdir = /tmp
 lc_messages_dir = /usr/share/mysql
 lc_messages = en_US
 skip-external-locking
-bind-address = 0.0.0.0
+skip-host-cache
+skip-name-resolve
+bind-address = ${MARIADB_BIND_ADDRESS}
 
 max_connections = ${MARIADB_MAX_CONNECTIONS}
 connect_timeout = ${MARIADB_CONNECT_TIMEOUT}
