@@ -10,10 +10,15 @@ fi
 create_core_properties_file() {
   mkdir -p $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH
 
-  if [ ! -f $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH/core.properties ]
+  CORE_PROPERTIES_FILE=$HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH/core.properties
+
+  if [ ! -f $CORE_PROPERTIES_FILE ]
   then
-    touch $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH/core.properties
-    echo "name=$CONFIG_PRESET_PATH" > $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH/core.properties
+    touch $CORE_PROPERTIES_FILE
+    echo "name=$CONFIG_PRESET_PATH" > $CORE_PROPERTIES_FILE
+    echo "dataDir=../../../../hence/solr/data/$CONFIG_PRESET_PATH" >> $CORE_PROPERTIES_FILE
+
+    mkdir $HENCE_APP_VOL_PREFIX/data/$CONFIG_PRESET_PATH
   fi
 }
 
@@ -23,7 +28,6 @@ if [ -n "${CONFIG_PRESET}" ]
 then
   cp -R /etc/solr/presets/$CONFIG_PRESET $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH/conf
   ln -s $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH /opt/solr/server/solr/$CONFIG_PRESET_PATH
-
 else
   if [ -n "$(ls -A $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH)" ] && [ ! ]
   then

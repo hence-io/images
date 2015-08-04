@@ -19,6 +19,6 @@ RUN sh $HENCE_PREFIX/install.sh
 
 EXPOSE 8983
 
-VOLUME ["$HENCE_APP_VOL_PREFIX/conf", "$HENCE_APP_VOL_PREFIX/logs/solr-general-logs", "$HENCE_APP_VOL_PREFIX/logs/solr-error-logs"]
+VOLUME ["$HENCE_APP_VOL_PREFIX/conf", "$HENCE_APP_VOL_PREFIX/data", "$HENCE_APP_VOL_PREFIX/logs/solr-general-logs", "$HENCE_APP_VOL_PREFIX/logs/solr-error-logs"]
 
 WORKDIR /opt/solr
