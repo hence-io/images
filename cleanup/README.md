@@ -2,6 +2,8 @@
 
 [![](https://badge.imagelayers.io/hence/cleanup:latest.svg)](https://imagelayers.io/?images=hence/cleanup:latest 'Get your own badge on imagelayers.io')
 
+__*Note:*__  This image is still in BETA, and is subject to change without notice.
+
 Our cleanup image, with default KEEP_IMAGES environment settings
 
 ## From [meltwater/docker-cleanup](https://registry.hub.docker.com/u/meltwater/docker-cleanup/):

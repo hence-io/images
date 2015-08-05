@@ -2,6 +2,8 @@
 
 [![](https://badge.imagelayers.io/hence/solr:latest.svg)](https://imagelayers.io/?images=hence/solr:latest 'Get your own badge on imagelayers.io')
 
+__*Note:*__  This image is still in BETA, and is subject to change without notice.
+
 This is our minimal customized Solr image based on [alpine:3.2](https://registry.hub.docker.com/_/alpine/).
 
 It uses the [s6-overlay](https://github.com/just-containers/s6-overlay) as a process supervisor and for log rotation.

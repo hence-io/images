@@ -2,6 +2,8 @@
 
 [![](https://badge.imagelayers.io/hence/data:latest.svg)](https://imagelayers.io/?images=hence/data:latest 'Get your own badge on imagelayers.io')
 
+__*Note:*__  This image is still in BETA, and is subject to change without notice.
+
 This is our minimal customized Data image based on [alpine:3.2](https://registry.hub.docker.com/_/alpine/).
 
 It's sole purpose is to mount persistent data for other containers to access using the `--volumes-from` RUN command.

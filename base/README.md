@@ -2,9 +2,13 @@
 
 [![](https://badge.imagelayers.io/hence/base:latest.svg)](https://imagelayers.io/?images=hence/base:latest 'Get your own badge on imagelayers.io')
 
+__*Note:*__  This image is still in BETA, and is subject to change without notice.
+
 This is our minimal customized Alpine Linux base image based on [alpine:3.2](https://registry.hub.docker.com/_/alpine/).
 
 It uses the [s6-overlay](https://github.com/just-containers/s6-overlay) as a process supervisor and for log rotation in derived images
+
+
 
 ## Supported tags and respective `Dockerfile` links
 * `0.0.1`, `latest`&nbsp;&nbsp;[base/Dockerfile](https://github.com/hence-io/images/blob/master/base/Dockerfile)
