@@ -95,6 +95,9 @@ user_dir =
 extension_dir = "/usr/lib/php/modules"
 enable_dl = Off
 
+extension = sockets.so
+zend_extension = opcache.so
+
 ;cgi.force_redirect = 1
 ;cgi.nph = 1
 ;cgi.redirect_status_env =
@@ -382,19 +385,19 @@ ldap.max_links = -1
 ;dba.default_handler =
 
 [opcache]
-;opcache.enable = 0
-;opcache.enable_cli = 0
-;opcache.memory_consumption = 64
-;opcache.interned_strings_buffer = 4
-;opcache.max_accelerated_files = 2000
+opcache.enable = ${PHP_OPCACHE_ENABLE}
+opcache.enable_cli = ${PHP_OPCACHE_ENABLE_CLI}
+opcache.memory_consumption = ${PHP_OPCACHE_MEMORY_CONSUMPTION}
+opcache.interned_strings_buffer = ${PHP_OPCACHE_INTERNAL_STRINGS_BUFFER}
+opcache.max_accelerated_files = ${PHP_OPCACHE_MAX_ACCELERATED_FILES}
 ;opcache.max_wasted_percentage = 5
 ;opcache.use_cwd = 1
 ;opcache.validate_timestamps = 1
-;opcache.revalidate_freq = 2
+opcache.revalidate_freq = ${PHP_OPCACHE_REVALIDATE_FREQ}
 ;opcache.revalidate_path = 0
 ;opcache.save_comments = 1
 ;opcache.load_comments = 1
-;opcache.fast_shutdown = 0
+opcache.fast_shutdown = ${PHP_OPCACHE_FAST_SHUTDOWN}
 ;opcache.enable_file_override = 0
 ;opcache.optimization_level = 0xffffffff
 ;opcache.inherited_hack = 1

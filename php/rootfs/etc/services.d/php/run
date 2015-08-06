@@ -14,6 +14,9 @@ then
   ./setup
 fi
 
+PROGRAM_OPTIONS="--php-ini=$HENCE_APP_DIR/conf/php.ini --fpm-config=$HENCE_APP_DIR/conf/php-fpm.conf $EXTRA_OPTIONS"
+set -- $@ $PROGRAM_OPTIONS
+
 chown -R $HENCE_APP_USER:$HENCE_APP_USER \
   $HENCE_APP_VOL_PREFIX/conf/ \
   $HENCE_APP_VOL_PREFIX/logs/ \

@@ -24,6 +24,7 @@ RUN apk --update add \
     php-mysql \
     php-mysqli \
     php-openssl \
+    php-opcache \
     php-pdo \
     php-pdo_mysql \
     php-pdo_pgsql \
@@ -31,6 +32,7 @@ RUN apk --update add \
     php-pear \
     php-pgsql \
     php-phar \
+    php-sockets \
     php-sqlite3 \
     php-xml \
     php-zip \
