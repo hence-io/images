@@ -1,5 +1,4 @@
 # MariaDB Utility functions
-PROGRAM_OPTIONS="--defaults-file=$HENCE_APP_DIR/conf/my.cnf --log-error=$HENCE_APP_DIR/logs/mysqld.log --basedir=$HENCE_APP_DIR --datadir=$HENCE_APP_DIR/data --plugin-dir=$HENCE_APP_DIR/lib/plugin --user=$HENCE_APP_USER --socket=$HENCE_APP_DIR/tmp/mysql.sock --lower-case-table-names=1 $EXTRA_OPTIONS"
 
 initialize_database() {
     echo "==> Initializing MySQL database..."
