@@ -35,7 +35,4 @@ location ~ \.php(?:${DOLLAR}|/) {
   fastcgi_index index.php;
   include /etc/nginx/fastcgi.conf;
   fastcgi_intercept_errors on;
-
-  client_max_body_size 128m;
-  client_body_buffer_size 128k;
 }
