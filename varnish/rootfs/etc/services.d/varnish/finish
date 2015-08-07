@@ -1,0 +1,2 @@
+#!/usr/bin/execlineb -P
+exit 0 #exiting this way, otherwise may kill containser before child process starts correctly

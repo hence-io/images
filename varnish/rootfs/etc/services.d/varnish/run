@@ -1,0 +1,39 @@
+#!/usr/bin/with-contenv sh
+
+set -e
+source $HENCE_PREFIX/hence-utils.sh
+
+set -- varnishd
+
+if [ ! "$(ls -A $HENCE_APP_VOL_PREFIX/conf)" ] ; then
+  generate_conf_files
+fi
+
+if [ -f ./setup ]
+then
+  . ./setup
+fi
+
+# The '-a' argument defines what address Varnish service HTTP requests from.
+PROGRAM_OPTIONS="-F \
+                -a 0.0.0.0:$VARNISH_PORT \
+                -p timeout_idle=$VARNISH_SESS_TIMEOUT \
+                -f $HENCE_APP_VOL_PREFIX/conf/default.vcl \
+                -s malloc,$VARNISH_STORAGE_AMOUNT \
+                -n $HENCE_APP_VOL_PREFIX/data/processes \
+                -P $HENCE_APP_VOL_PREFIX/data/processes/pid \
+                -u $HENCE_APP_USER \
+                -T 0.0.0.0:$VARNISH_CONSOLE_PORT \
+                -S $HENCE_APP_VOL_PREFIX/conf/secret \
+                "
+
+set -- $@ $PROGRAM_OPTIONS
+
+chown -R $HENCE_APP_USER:$HENCE_APP_USER \
+  $HENCE_APP_VOL_PREFIX/logs/ \
+  $HENCE_APP_VOL_PREFIX/data/ \
+  $HENCE_APP_VOL_PREFIX/conf/ || true
+
+print_welcome_page
+
+sudo exec "$@"

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+export DOLLAR='$'
+
+if [ -z "${VARNISH_PORT}" ]
+then
+  export VARNISH_PORT=80
+fi
+
+if [ -z "${VARNISH_BACKEND_IP}" ]
+then
+  export VARNISH_BACKEND_IP=172.17.42.1
+fi
+
+if [ -z "${VARNISH_BACKEND_PORT}" ]
+then
+  export VARNISH_BACKEND_PORT=80
+fi
+
+if [ -z "${VARNISH_STORAGE_AMOUNT}" ]
+then
+  export VARNISH_STORAGE_AMOUNT=100m
+fi
+
+if [ -z "${VARNISH_SESS_TIMEOUT}" ]
+then
+  export VARNISH_SESS_TIMEOUT=20
+fi
+
+if [ -z "${VARNISH_CONSOLE_PORT}" ]
+then
+  export VARNISH_CONSOLE_PORT=2000
+fi
+
+if [ -z "${VARNISH_CONSOLE_SECRET}" ]
+then
+  export VARNISH_CONSOLE_SECRET=changeme
+fi
+
+if [ -z "${CONFIG_PRESET}" ]
+then
+  export CONFIG_PRESET=default
+fi
+
+# Create the secret file
+if [ ! -f "$HENCE_APP_VOL_PREFIX/conf/secret" ]
+then
+  echo $VARNISH_CONSOLE_SECRET >> $HENCE_APP_VOL_PREFIX/conf/secret
+fi
+
+envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.vcl.tmpl > $HENCE_APP_VOL_PREFIX/conf/default.vcl

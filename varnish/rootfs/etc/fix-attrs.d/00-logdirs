@@ -1,0 +1,2 @@
+$HENCE_APP_VOL_PREFIX/logs/varnish-error-logs true hence,32768:32768 0644 2700
+$HENCE_APP_VOL_PREFIX/logs/varnish-general-logs true hence,32768:32768 0644 2700

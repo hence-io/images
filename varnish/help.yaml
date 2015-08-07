@@ -1,0 +1,5 @@
+volumes:
+  $HENCE_APP_VOL_PREFIX/conf: "Location of $HENCE_APP_NAME configuration files."
+  $HENCE_APP_VOL_PREFIX/logs: "Location of general and error logs."
+ports:
+  80: "Default http port."
