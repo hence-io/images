@@ -19,6 +19,7 @@ RUN apk --update add \
     php-iconv \
     php-intl \
     php-json \
+    php-ldap \
     php-mcrypt \
     php-memcache \
     php-mysql \

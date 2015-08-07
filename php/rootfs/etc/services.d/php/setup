@@ -64,7 +64,7 @@ fi
 
 if [ -z "${PHP_DATE_TIMEZONE}" ]
 then
-  PHP_DATE_TIMEZONE=UTC
+  PHP_DATE_TIMEZONE=America/New_York
 fi
 
 if [ -z "${PHP_OPCACHE_ENABLE}" ]
