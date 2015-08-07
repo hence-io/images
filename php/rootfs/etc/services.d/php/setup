@@ -15,28 +15,6 @@ declare -x PHP_OPCACHE_MAX_ACCELERATED_FILES
 declare -x PHP_OPCACHE_REVALIDATE_FREQ
 declare -x PHP_OPCACHE_FAST_SHUTDOWN
 
-find $HENCE_APP_VOL_PREFIX/conf/custom.d -mindepth 1 -type d -print0 | while read -d $'\0' TEMPLATE
-do
-  RELATIVENAME=${TEMPLATE//\/etc\/php\/custom.d\//}
-
-  if [ ! -d "$HENCE_APP_VOL_PREFIX/conf/conf.d/${RELATIVENAME}" ]
-  then
-    mkdir "$HENCE_APP_VOL_PREFIX/conf/conf.d/${RELATIVENAME}"
-  fi
-done
-
-find $HENCE_APP_VOL_PREFIX/conf/custom.d -mindepth 1 -type f -print0 | while read -d $'\0' TEMPLATE
-do
-  RELATIVENAME=${TEMPLATE//\/etc\/php\/custom.d\//}
-
-  if [ "$TEMPLATE" != "$HENCE_APP_VOL_PREFIX/conf/custom.d/.keep" ]
-  then
-    ln -sf \
-      "$HENCE_APP_VOL_PREFIX/conf/conf.d/${RELATIVENAME}" \
-      "$HENCE_APP_VOL_PREFIX/conf/custom.d/${TEMPLATE}"
-  fi
-done
-
 if [ -z "${PHP_MEMORY_LIMIT}" ]
 then
   PHP_MEMORY_LIMIT=512M
