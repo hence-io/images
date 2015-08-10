@@ -9,19 +9,23 @@ if [ ! "$(ls -A $HENCE_APP_VOL_PREFIX/conf)" ]; then
   generate_conf_files
 fi
 
+echo "Conf files loaded"
+
 if [ -f ./setup ]
 then
   ./setup
 fi
+
+echo "Setup Complete"
 
 PROGRAM_OPTIONS="--php-ini=$HENCE_APP_DIR/conf/php.ini --fpm-config=$HENCE_APP_DIR/conf/php-fpm.conf $EXTRA_OPTIONS"
 set -- $@ $PROGRAM_OPTIONS
 
 chown -R $HENCE_APP_USER:$HENCE_APP_USER \
   $HENCE_APP_VOL_PREFIX/conf/ \
-  $HENCE_APP_VOL_PREFIX/logs/ \
-  /app || true
+  $HENCE_APP_VOL_PREFIX/logs/ || true
 
+echo "Perm settings Complete"
 print_welcome_page
 
 exec "$@"
