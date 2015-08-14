@@ -33,7 +33,7 @@ disable_classes =
 
 ;ignore_user_abort = On
 
-;realpath_cache_size = 16k
+realpath_cache_size = ${PHP_REALPATH_CACHE_SIZE}
 ;realpath_cache_ttl = 120
 
 zend.enable_gc = On
@@ -397,7 +397,7 @@ opcache.revalidate_freq = ${PHP_OPCACHE_REVALIDATE_FREQ}
 ;opcache.save_comments = 1
 ;opcache.load_comments = 1
 opcache.fast_shutdown = ${PHP_OPCACHE_FAST_SHUTDOWN}
-;opcache.enable_file_override = 0
+opcache.enable_file_override = ${PHP_OPCACHE_ENABLE_FILE_OVERRIDE}
 ;opcache.optimization_level = 0xffffffff
 ;opcache.inherited_hack = 1
 ;opcache.dups_fix = 0
