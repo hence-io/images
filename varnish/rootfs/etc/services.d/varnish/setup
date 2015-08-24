@@ -42,6 +42,11 @@ then
   export CONFIG_PRESET=default
 fi
 
+if [ -z "${FIRST_BYTE_TIMEOUT}" ]
+then
+  export FIRST_BYTE_TIMEOUT=60s
+fi
+
 # Create the secret file
 if [ ! -f "$HENCE_APP_VOL_PREFIX/conf/secret" ]
 then
