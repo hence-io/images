@@ -39,6 +39,13 @@ loaded by the server configuration directly.
 ## Available nginx environment variables [defaults]
 ```bash
 CONFIG_PRESET []
+NGINX_PHP_ALIAS [php]
+NGINX_PROXY_PATH [rest/api]
+NGINX_PROXY_HOST [localhost]
+NGINX_PROXY_PORT [3000]
+FASTCGI_READ_TIMEOUT [300]
+CLIENT_MAX_BODY_SIZE [128m]
+CLIENT_BODY_BUFFER_SIZE [128k]
 ```
 
 ## Authors

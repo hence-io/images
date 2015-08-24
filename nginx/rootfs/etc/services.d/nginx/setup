@@ -5,6 +5,9 @@ declare -x NGINX_PHP_ALIAS
 declare -x NGINX_PROXY_PATH
 declare -x NGINX_PROXY_HOST
 declare -x NGINX_PROXY_PORT
+declare -x FASTCGI_READ_TIMEOUT
+declare -x CLIENT_MAX_BODY_SIZE
+declare -x CLIENT_BODY_BUFFER_SIZE
 
 if [ -z "${NGINX_PHP_ALIAS}" ]
 then
@@ -24,6 +27,21 @@ fi
 if [ -z "${NGINX_PROXY_PORT}" ]
 then
   NGINX_PROXY_PORT=3000
+fi
+
+if [ -z "${FASTCGI_READ_TIMEOUT}" ]
+then
+  FASTCGI_READ_TIMEOUT=300
+fi
+
+if [ -z "${CLIENT_MAX_BODY_SIZE}" ]
+then
+  CLIENT_MAX_BODY_SIZE=128m
+fi
+
+if [ -z "${CLIENT_BODY_BUFFER_SIZE}" ]
+then
+  CLIENT_BODY_BUFFER_SIZE=128k
 fi
 
 chown -R $HENCE_APP_USER:www-data \
