@@ -4,7 +4,7 @@ vcl 4.0;
 backend default {
     .host = "${VARNISH_BACKEND_IP}";
     .port = "${VARNISH_BACKEND_PORT}";
-    .first_byte_timeout = "${FIRST_BYTE_TIMEOUT}";
+    .first_byte_timeout = ${FIRST_BYTE_TIMEOUT};
 }
 
 sub vcl_recv {
