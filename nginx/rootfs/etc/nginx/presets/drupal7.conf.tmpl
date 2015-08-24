@@ -32,6 +32,7 @@ location ~ \.php(?:${DOLLAR}|/) {
   include $HENCE_APP_VOL_PREFIX/conf/fastcgi.conf;
   fastcgi_intercept_errors on;
   fastcgi_read_timeout ${FASTCGI_READ_TIMEOUT};
+  fastcgi_ignore_client_abort ${FASTCGI_IGNORE_CLIENT_ABORT};
   client_max_body_size ${CLIENT_MAX_BODY_SIZE};
   client_body_buffer_size ${CLIENT_BODY_BUFFER_SIZE};
 }
