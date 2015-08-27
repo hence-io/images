@@ -1,10 +1,13 @@
 #!/bin/bash
 
-export DOLLAR='$' # Needed to keep envsubst from destroying nginx variables in conf.tmpl files
+export DOLLAR="$" # Needed to keep envsubst from destroying nginx variables in conf.tmpl files
 declare -x NGINX_PHP_ALIAS
 declare -x NGINX_PROXY_PATH
 declare -x NGINX_PROXY_HOST
 declare -x NGINX_PROXY_PORT
+declare -x NGINX_SSL_INCLUDE
+declare -x NGINX_SSL_CERT_FILE
+declare -x NGINX_SSL_CERT_KEY_FILE
 declare -x FASTCGI_READ_TIMEOUT
 declare -x FASTCGI_IGNORE_CLIENT_ABORT
 declare -x CLIENT_MAX_BODY_SIZE
@@ -29,6 +32,22 @@ if [ -z "${NGINX_PROXY_PORT}" ]
 then
   NGINX_PROXY_PORT=3000
 fi
+
+if [ -z "${NGINX_SSL_INCLUDE}" ]
+then
+  NGINX_SSL_INCLUDE=""
+fi
+
+if [ -z "${NGINX_SSL_CERT_FILE}" ]
+then
+  NGINX_SSL_CERT_FILE=""
+fi
+
+if [ -z "${NGINX_SSL_CERT_KEY_FILE}" ]
+then
+  NGINX_SSL_CERT_KEY_FILE=""
+fi
+
 
 if [ -z "${FASTCGI_READ_TIMEOUT}" ]
 then
@@ -55,10 +74,18 @@ chown -R $HENCE_APP_USER:www-data \
 
 if [ -n "${CONFIG_PRESET}" ]
 then
-  sed -i "s/presets\/default/presets\/${CONFIG_PRESET}/" \
-    $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
+  sed -i "s/presets\/default/presets\/${CONFIG_PRESET}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 
   envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.conf
 fi
+
+if [ "${ENABLE_SSL}" = "1" ]
+then
+  NGINX_SSL_INCLUDE="include $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf;"
+
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf
+fi
+
+sed -i "s/\$NGINX_SSL_INCLUDE/${NGINX_SSL_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 
 envsubst < $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/nginx.conf
