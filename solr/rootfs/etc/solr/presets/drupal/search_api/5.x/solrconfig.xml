@@ -73,9 +73,13 @@
   <!-- A "dir" option by itself adds any files found in the directory to the
        classpath, this is useful for including all jars in a directory.
     -->
-  <lib dir="${solr.contrib.dir:../../../contrib}/extraction/lib" />
+  <lib dir="/opt/solr/contrib/extraction/lib" />
+  <lib dir="/opt/solr/contrib/clustering/lib/" />
+  <lib dir="/opt/solr/dist" regex="solr-cell-\d.*\.jar" />
+
+<!--   <lib dir="${solr.contrib.dir:../../../contrib}/extraction/lib" />
   <lib dir="${solr.contrib.dir:../../../contrib}/clustering/lib/" />
-  <lib dir="${solr.contrib.dir:../../../dist}" regex="solr-cell-\d.*\.jar" />
+  <lib dir="${solr.contrib.dir:../../../contrib}/../dist" regex="solr-cell-\d.*\.jar" /> -->
 
   <!-- The velocity library has been known to crash Solr in some
        instances when deployed as a war file to Tomcat. Therefore all
