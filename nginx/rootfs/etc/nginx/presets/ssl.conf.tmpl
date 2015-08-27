@@ -4,5 +4,5 @@ ssl_certificate_key /etc/ssl/private/${NGINX_SSL_CERT_KEY_FILE};
 
 # force https-redirects
 if (${DOLLAR}scheme = http) {
-    rewrite ^ ${DOLLAR}host${DOLLAR}request_uri? permanent;
+    rewrite ^ https://${DOLLAR}host${DOLLAR}request_uri? permanent;
 }
