@@ -1,4 +1,4 @@
-listen              443 ssl;
+listen              443 ssl default_server;
 ssl_certificate     /etc/ssl/certs/${NGINX_SSL_CERT_FILE};
 ssl_certificate_key /etc/ssl/private/${NGINX_SSL_CERT_KEY_FILE};
 
