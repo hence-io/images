@@ -20,8 +20,7 @@ fi
 chown -R $HENCE_APP_USER:$HENCE_APP_USER \
   $HENCE_APP_VOL_PREFIX/logs/ \
   $HENCE_APP_VOL_PREFIX/conf/ \
-  /opt/solr \
-  /opt/$SOLR || true
+  /opt/solr || true
 
 print_welcome_page
 

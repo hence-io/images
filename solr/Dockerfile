@@ -11,7 +11,7 @@ ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
 
 RUN mkdir -p /opt && \
     curl -s --retry 3 http://archive.apache.org/dist/lucene/solr/$HENCE_APP_VERSION/$SOLR.tgz | tar -C /opt --extract --gzip && \
-    ln -s /opt/$SOLR /opt/solr
+    mv /opt/$SOLR /opt/solr
 
 COPY rootfs /
 
