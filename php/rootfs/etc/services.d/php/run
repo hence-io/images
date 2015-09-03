@@ -23,8 +23,7 @@ set -- $@ $PROGRAM_OPTIONS
 
 chown -R $HENCE_APP_USER:$HENCE_APP_USER \
   $HENCE_APP_VOL_PREFIX/conf/ \
-  $HENCE_APP_VOL_PREFIX/logs/ \
-  /app/ || true
+  $HENCE_APP_VOL_PREFIX/logs/ || true
 
 echo "Perm settings Complete"
 print_welcome_page
