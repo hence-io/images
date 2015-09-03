@@ -13,7 +13,6 @@ ENV PATH=$HENCE_APP_DIR/sbin:$HENCE_PREFIX/common/bin:$PATH
 RUN apk add --update \
   nginx=$HENCE_APP_VERSION && \
   rm -rf /var/cache/apk/* && \
-  adduser $HENCE_APP_USER  -D -g "" -G www-data && \
   rm -rf /etc/nginx/* && \
   chown -R $HENCE_APP_USER:$HENCE_APP_USER /var/lib/nginx && \
   chsh -s /bin/bash $HENCE_APP_USER
