@@ -20,10 +20,10 @@ Data can also be volume-mounted for easy persistence
 
 ### Default supervised processes:
 * s6-svscan (as PID 1)
-* mysqld
-* mysql-general-logs (log fifo)
-* mysql-error-logs (log fifo)
-* mysql-slow-query-logs (log fifo)
+* php
+* php-general-logs (log fifo)
+* php-error-logs (log fifo)
+* php-slow-query-logs (log fifo)
 
 ## Available conf environment variables [defaults]
 ```bash
