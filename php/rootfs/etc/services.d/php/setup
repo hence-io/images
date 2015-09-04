@@ -102,7 +102,7 @@ fi
 if [ -n "${MYSQL_HOST}" ]
 then
   cp -R $COMPOSER_HOME/vendor/fillup/phpmyadmin-minimal /vendor/phpmyadmin
-  rm /app/phpmyadmin && ln -sf /vendor/phpmyadmin /app/phpmyadmin
+  rm -f /app/phpmyadmin && ln -sf /vendor/phpmyadmin /app/phpmyadmin
 fi
 
 envsubst < $HENCE_APP_VOL_PREFIX/conf/php.ini.tmpl > $HENCE_APP_VOL_PREFIX/conf/php.ini
