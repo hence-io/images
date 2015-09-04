@@ -1,6 +1,6 @@
 # Hence PHP-FPM (Drupal 7)
 
-[![](https://badge.imagelayers.io/hence/php:latest.svg)](https://imagelayers.io/?images=hence/php-drupal7:latest 'Get your own badge on imagelayers.io')
+[![](https://badge.imagelayers.io/hence/php-drupal7:latest.svg)](https://imagelayers.io/?images=hence/php-drupal7:latest 'Get your own badge on imagelayers.io')
 
 __*Note:*__  This image is still in BETA, and is subject to change without notice.
 
