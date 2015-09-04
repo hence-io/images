@@ -24,6 +24,10 @@ location ~ /\.ht {
   deny all;
 }
 
+location /phpmyadmin {
+  index index.php;
+}
+
 location ~ \.php(?:${DOLLAR}|/) {
   try_files ${DOLLAR}uri =404;
 

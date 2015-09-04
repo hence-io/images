@@ -24,6 +24,7 @@ chown -R $HENCE_APP_USER:$HENCE_APP_USER \
   $HENCE_APP_VOL_PREFIX/logs/ \
   $HENCE_APP_VOL_PREFIX/conf/ \
   /etc/ssl/ \
+  /vendor/ \
   /app/ || true
 
 print_welcome_page
