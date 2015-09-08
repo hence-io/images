@@ -31,6 +31,11 @@ sub vcl_recv {
            return (pass);
     }
 
+    # Here we filter out all supporting vendor urls
+    if (req.url ~ "^/phpmyadmin{DOLLAR}" ||
+        req.url ~ "^/phpmyadmin/.*${DOLLAR}") {
+           return (pass);
+    }
 
     ## BACKUP AND MIGRATE MODULE ##
 
