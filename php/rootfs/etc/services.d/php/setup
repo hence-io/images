@@ -102,6 +102,7 @@ fi
 if [ -n "${MYSQL_HOST}" ]
 then
   cp -R $COMPOSER_HOME/vendor/fillup/phpmyadmin-minimal /vendor/phpmyadmin
+  sed -i "s/getenv(MYSQL_HOST) ?: 'localhost'/'${MYSQL_HOST}'/" /vendor/phpmyadmin/config.inc.php
   rm -f /app/phpmyadmin && ln -sf /vendor/phpmyadmin /app/phpmyadmin
 fi
 
