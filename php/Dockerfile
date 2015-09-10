@@ -4,13 +4,13 @@ MAINTAINER Clint Beacock <clint@therefore.ca>
 ENV HENCE_APP_DIR=$HENCE_PREFIX/php \
     HENCE_APP_NAME=php \
     HENCE_APP_USER=hence \
-    HENCE_APP_VERSION=5.6.13-r0
+    HENCE_APP_VERSION=3.2
 
 ENV HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME \
     PATH=$HENCE_APP_DIR/bin:$PATH
 
 RUN apk --update add \
-    php-fpm=$HENCE_APP_VERSION \
+    php-fpm \
     php-cli \
     php-ctype \
     php-curl \

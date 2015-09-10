@@ -1,4 +1,4 @@
 #!/usr/bin/execlineb -P
 
-if { logutil-newfifo -o php /var/run/s6/php-error-log-fifo }
-if { logutil-newfifo -o php /var/run/s6/php-general-log-fifo }
+if { logutil-newfifo -o hence /var/run/s6/php-error-log-fifo }
+if { logutil-newfifo -o hence /var/run/s6/php-general-log-fifo }

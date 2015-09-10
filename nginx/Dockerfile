@@ -3,7 +3,7 @@ MAINTAINER Clint Beacock <clint@therefore.ca>
 
 ENV HENCE_APP_NAME=nginx \
     HENCE_APP_USER=hence \
-    HENCE_APP_VERSION=1.8.0-r1
+    HENCE_APP_VERSION=3.2
 
 ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
     HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME
@@ -11,7 +11,7 @@ ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
 ENV PATH=$HENCE_APP_DIR/sbin:$HENCE_PREFIX/common/bin:$PATH
 
 RUN apk add --update \
-  nginx=$HENCE_APP_VERSION && \
+  nginx && \
   rm -rf /var/cache/apk/* && \
   rm -rf /etc/nginx/* && \
   chown -R $HENCE_APP_USER:$HENCE_APP_USER /var/lib/nginx && \

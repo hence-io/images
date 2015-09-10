@@ -3,13 +3,13 @@ MAINTAINER Clint Beacock <clint@therefore.ca>
 
 ENV HENCE_APP_NAME=go \
     HENCE_APP_USER=hence \
-    HENCE_APP_VERSION=1.5.1-r1
+    HENCE_APP_VERSION=3.2
 
 ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
     HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME
 
 RUN apk --update add \
-  go=$HENCE_APP_VERSION && \
+  go && \
   rm -rf /var/cache/apk/*
 
 COPY rootfs /

@@ -1,4 +1,4 @@
 #!/usr/bin/execlineb -P
 
-if { logutil-newfifo -o solr /var/run/s6/solr-error-log-fifo }
-if { logutil-newfifo -o solr /var/run/s6/solr-general-log-fifo }
+if { logutil-newfifo -o hence /var/run/s6/solr-error-log-fifo }
+if { logutil-newfifo -o hence /var/run/s6/solr-general-log-fifo }

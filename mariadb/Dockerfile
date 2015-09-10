@@ -4,13 +4,13 @@ MAINTAINER Clint Beacock <clint@therefore.ca>
 ENV HENCE_APP_DIR=$HENCE_PREFIX/mysql \
     HENCE_APP_NAME=mariadb \
     HENCE_APP_USER=mysql \
-    HENCE_APP_VERSION=5.5.43-r3
+    HENCE_APP_VERSION=3.2
 
 ENV HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME \
     PATH=$HENCE_APP_DIR/bin:$PATH
 
 RUN apk --update add \
-    mariadb@3.2 \
+    mariadb \
     mariadb-client && \
     rm -rf /var/cache/apk/* && \
     rm -rf /etc/mysql && \

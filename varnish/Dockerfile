@@ -3,13 +3,13 @@ MAINTAINER Clint Beacock <clint@therefore.ca>
 
 ENV HENCE_APP_NAME=varnish \
     HENCE_APP_USER=hence \
-    HENCE_APP_VERSION=4.0.3-r0
+    HENCE_APP_VERSION=3.2
 
 ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
     HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME
 
 RUN apk add --update \
-  varnish=$HENCE_APP_VERSION && \
+  varnish && \
   rm -rf /var/cache/apk/*
 
 COPY rootfs /

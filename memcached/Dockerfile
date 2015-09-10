@@ -3,13 +3,13 @@ MAINTAINER Clint Beacock <clint@therefore.ca>
 
 ENV HENCE_APP_NAME=memcached \
     HENCE_APP_USER=hence \
-    HENCE_APP_VERSION=1.4.24-r0
+    HENCE_APP_VERSION=3.2
 
 ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
     HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME
 
 RUN apk add --update \
-  memcached=$HENCE_APP_VERSION \
+  memcached \
   libmemcached && \
   rm -rf /var/cache/apk/*
 
