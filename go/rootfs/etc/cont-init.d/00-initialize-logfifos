@@ -1,0 +1,4 @@
+#!/usr/bin/execlineb -P
+
+if { logutil-newfifo -o hence /var/run/s6/go-error-log-fifo }
+if { logutil-newfifo -o hence /var/run/s6/go-general-log-fifo }

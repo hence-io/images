@@ -20,7 +20,7 @@ RUN apk add --update \
   shadow@testing \
   sudo \
   gettext \
-  execline && \
+  execline@edge && \
   rm -rf /var/cache/apk/* && \
   curl -R -L -O https://github.com/just-containers/s6-overlay/releases/download/v1.13.0.0/s6-overlay-amd64.tar.gz && \
   tar xvfz s6-overlay-amd64.tar.gz -C / && \

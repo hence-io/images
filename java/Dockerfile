@@ -7,14 +7,14 @@ ONBUILD COPY post-install.sh /tmp/post-install.sh
 ENV HENCE_APP_DIR=$HENCE_PREFIX/java \
     HENCE_APP_NAME=java \
     HENCE_APP_USER=hence \
-    HENCE_APP_VERSION=7.79.2.5.5-r0
+    HENCE_APP_VERSION=3.2
 
 ENV HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME \
     PATH=$HENCE_APP_DIR/bin:$PATH
 
 RUN apk add --update \
   nss \
-  openjdk7-jre=$HENCE_APP_VERSION && \
+  openjdk7-jre && \
   rm -rf /var/cache/apk/* && \
   find /usr/share/ca-certificates/mozilla/ -name *.crt -exec keytool -import -trustcacerts \
   -keystore /usr/lib/jvm/java-1.7-openjdk/jre/lib/security/cacerts -storepass changeit -noprompt \

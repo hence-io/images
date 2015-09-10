@@ -1,0 +1,5 @@
+volumes:
+  /app: "Location of static files to be served."
+  $HENCE_APP_VOL_PREFIX/logs: "Location of access and error logs."
+ports:
+  8000: "Default http port."
