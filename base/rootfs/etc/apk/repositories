@@ -1,2 +1,10 @@
 http://nl.alpinelinux.org/alpine/edge/main
+http://nl.alpinelinux.org/alpine/v3.2/main
+http://nl.alpinelinux.org/alpine/v3.1/main
+http://nl.alpinelinux.org/alpine/v3.0/main
+http://nl.alpinelinux.org/alpine/v2.7/main
+http://nl.alpinelinux.org/alpine/v2.6/main
+http://nl.alpinelinux.org/alpine/v2.5/main
+http://nl.alpinelinux.org/alpine/v2.4/main
+http://nl.alpinelinux.org/alpine/v2.3/main
 @testing http://nl.alpinelinux.org/alpine/edge/testing
