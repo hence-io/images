@@ -1,10 +1,11 @@
 http://nl.alpinelinux.org/alpine/edge/main
-http://nl.alpinelinux.org/alpine/v3.2/main
-http://nl.alpinelinux.org/alpine/v3.1/main
-http://nl.alpinelinux.org/alpine/v3.0/main
-http://nl.alpinelinux.org/alpine/v2.7/main
-http://nl.alpinelinux.org/alpine/v2.6/main
-http://nl.alpinelinux.org/alpine/v2.5/main
-http://nl.alpinelinux.org/alpine/v2.4/main
-http://nl.alpinelinux.org/alpine/v2.3/main
+@latest-stable http://nl.alpinelinux.org/alpine/latest-stable/main
+@3.2 http://nl.alpinelinux.org/alpine/v3.2/main
+@3.1 http://nl.alpinelinux.org/alpine/v3.1/main
+@3.0 http://nl.alpinelinux.org/alpine/v3.0/main
+@2.7 http://nl.alpinelinux.org/alpine/v2.7/main
+@2.6 http://nl.alpinelinux.org/alpine/v2.6/main
+@2.5 http://nl.alpinelinux.org/alpine/v2.5/main
+@2.4 http://nl.alpinelinux.org/alpine/v2.4/main
+@2.3 http://nl.alpinelinux.org/alpine/v2.3/main
 @testing http://nl.alpinelinux.org/alpine/edge/testing
