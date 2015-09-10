@@ -12,7 +12,7 @@ It uses the [s6-overlay](https://github.com/just-containers/s6-overlay) as a pro
 * `latest`&nbsp;&nbsp;[solr/Dockerfile](https://github.com/hence-io/images/blob/master/solr/Dockerfile)
 
 ## Features
-Builds on the [hence/base](https://registry.hub.docker.com/u/hence/base/) image to provide a minimally-sized, fully functional solr environment.
+Builds on the [hence/java](https://registry.hub.docker.com/u/hence/java/) image to provide a minimally-sized, fully functional solr environment.
 
 This image includes some configuration presets for various applications:
 
