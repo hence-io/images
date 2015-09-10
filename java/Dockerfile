@@ -28,7 +28,8 @@ ENV JAVA_HOME=/usr/lib/jvm/java-1.7-openjdk \
 
 COPY rootfs /
 
-RUN sh $HENCE_PREFIX/install.sh
+RUN sh $HENCE_PREFIX/install.sh && \
+    s6-rmrf /etc/s6/services/s6-fdholderd/down
 
 VOLUME ["/app", "$HENCE_APP_VOL_PREFIX/logs/java-general-logs", "$HENCE_APP_VOL_PREFIX/logs/java-error-logs"]
 

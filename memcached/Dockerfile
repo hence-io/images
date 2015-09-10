@@ -15,7 +15,8 @@ RUN apk add --update \
 
 COPY rootfs /
 
-RUN sh $HENCE_PREFIX/install.sh
+RUN sh $HENCE_PREFIX/install.sh && \
+    s6-rmrf /etc/s6/services/s6-fdholderd/down
 
 EXPOSE 11211
 
