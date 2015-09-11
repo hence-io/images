@@ -9,7 +9,9 @@ ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
     HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME
 
 RUN apk --update add \
-  go && \
+  go \
+  bzr \
+  git && \
   rm -rf /var/cache/apk/*
 
 COPY rootfs /
