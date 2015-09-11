@@ -1,0 +1,3 @@
+#!/usr/bin/execlineb -P
+
+import -u HENCE_APP_VOL_PREFIX logutil-service -f /var/run/s6/mailhog-error-log-fifo ${HENCE_APP_VOL_PREFIX}/logs/mailhog-error-logs

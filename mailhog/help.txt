@@ -1,0 +1,14 @@
+  $HENCE_APP_NAME cheatsheet:
+
+    VOLUMES:
+      $HENCE_APP_VOL_PREFIX/logs: Location of general and error logs.
+
+    PORTS:
+      1025: Default SMTP server port.
+      8025: Default HTTP server port.
+
+    COMMANDS:
+      print-help: Print this page.
+      check-updates: Check if a new version of the $HENCE_APP_NAME image is available.
+
+  Visit $GITHUB_PAGE for more information.

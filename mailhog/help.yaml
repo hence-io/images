@@ -1,0 +1,5 @@
+volumes:
+  $HENCE_APP_VOL_PREFIX/logs: "Location of general and error logs."
+ports:
+  1025: "Default SMTP server port."
+  8025: "Default HTTP server port."

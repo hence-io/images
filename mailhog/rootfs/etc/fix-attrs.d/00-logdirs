@@ -1,0 +1,2 @@
+$HENCE_APP_VOL_PREFIX/logs/mailhog-error-logs true hence,32768:32768 0644 2700
+$HENCE_APP_VOL_PREFIX/logs/mailhog-general-logs true hence,32768:32768 0644 2700
