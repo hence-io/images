@@ -10,6 +10,7 @@ It uses the [s6-overlay](https://github.com/just-containers/s6-overlay) as a pro
 
 ## Supported tags and respective `Dockerfile` links
 * `latest`&nbsp;&nbsp;[go/Dockerfile](https://github.com/hence-io/images/blob/master/go/Dockerfile)
+* `latest-onbuild`&nbsp;&nbsp;[go/onbuild/Dockerfile](https://github.com/hence-io/images/blob/master/go/onbuild/Dockerfile)
 
 ## Features
 Builds on the [hence/base](https://registry.hub.docker.com/u/hence/base/) image to provide a minimally-sized, fully functional GoLang environment.

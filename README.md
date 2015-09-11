@@ -24,8 +24,8 @@ The following describes the containers that are available and their inheritance 
 |  ├─ memcached
 |  ├─ nginx
 |  |
-|  ├─ nodejs
-|  |  └─ nodejs:onbuild
+|  ├─ node
+|  |  └─ node:onbuild
 |  |
 |  ├─ php
 |  |  └─ php-drupal7

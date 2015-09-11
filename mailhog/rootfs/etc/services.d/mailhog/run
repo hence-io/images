@@ -3,14 +3,11 @@
 set -e
 source $HENCE_PREFIX/hence-utils.sh
 
-echo '1'
 set -- /go/bin/MailHog
 
-echo '2'
 chown -R $HENCE_APP_USER:$HENCE_APP_USER \
   $GOPATH || true
 
-echo '3'
 print_welcome_page
 
 echo '4'
