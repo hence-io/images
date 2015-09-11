@@ -1,0 +1,3 @@
+#!/usr/bin/execlineb -P
+
+import -u HENCE_APP_VOL_PREFIX logutil-service -f /var/run/s6/node-general-log-fifo ${HENCE_APP_VOL_PREFIX}/logs/node-general-logs

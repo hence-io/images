@@ -1,0 +1,2 @@
+$HENCE_APP_VOL_PREFIX/logs/node-error-logs true hence,32768:32768 0644 2700
+$HENCE_APP_VOL_PREFIX/logs/node-general-logs true hence,32768:32768 0644 2700
