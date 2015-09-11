@@ -1,2 +1,2 @@
-$HENCE_APP_VOL_PREFIX/logs/memcached-error-logs true memcached,32768:32768 0644 2700
-$HENCE_APP_VOL_PREFIX/logs/memcached-access-logs true memcached,32768:32768 0644 2700
+$HENCE_APP_VOL_PREFIX/logs/memcached-error-logs true hence,32768:32768 0644 2700
+$HENCE_APP_VOL_PREFIX/logs/memcached-access-logs true hence,32768:32768 0644 2700

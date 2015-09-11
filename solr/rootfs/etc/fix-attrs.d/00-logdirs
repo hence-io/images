@@ -1,2 +1,2 @@
-$HENCE_APP_VOL_PREFIX/logs/solr-error-logs true solr,32768:32768 0644 2700
-$HENCE_APP_VOL_PREFIX/logs/solr-general-logs true solr,32768:32768 0644 2700
+$HENCE_APP_VOL_PREFIX/logs/solr-error-logs true hence,32768:32768 0644 2700
+$HENCE_APP_VOL_PREFIX/logs/solr-general-logs true hence,32768:32768 0644 2700
