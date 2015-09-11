@@ -16,7 +16,6 @@ Builds on the [hence/base](https://registry.hub.docker.com/u/hence/base/) image 
 
 ### Default supervised processes:
 * s6-svscan (as PID 1)
-* go
 * go-general-logs (log fifo)
 * go-error-logs (log fifo)
 

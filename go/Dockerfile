@@ -14,17 +14,15 @@ RUN apk --update add \
 
 COPY rootfs /
 
+ENV GOPATH=/go \
+    PATH=$GOPATH/bin:/usr/src/go/bin:$PATH
+
 RUN sh $HENCE_PREFIX/install.sh && \
     s6-rmrf /etc/s6/services/s6-fdholderd/down
 
 EXPOSE 8000
 
-ENV GOPATH=/go \
-    PATH=$GOPATH/bin:/usr/src/go/bin:$PATH
-
-VOLUME ["$GOPATH", "$HENCE_APP_VOL_PREFIX/logs/go-general-logs", "$HENCE_APP_VOL_PREFIX/logs/go-error-logs"]
-
-RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+VOLUME [/app, "$HENCE_APP_VOL_PREFIX/logs/go-general-logs", "$HENCE_APP_VOL_PREFIX/logs/go-error-logs"]
 
 WORKDIR $GOPATH
 

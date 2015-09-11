@@ -1,11 +1,10 @@
 FROM hence/go:latest
 
-RUN mkdir -p /go/src/app
-WORKDIR /go/src/app
+WORKDIR /app
 
 # this will ideally be built by the ONBUILD below ;)
 CMD ["go-wrapper", "run"]
 
-ONBUILD COPY . /go/src/app
+ONBUILD COPY . /app
 ONBUILD RUN go-wrapper download
 ONBUILD RUN go-wrapper install
