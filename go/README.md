@@ -1,4 +1,4 @@
-# Hence Ngnix
+# Hence Go
 
 [![](https://badge.imagelayers.io/hence/go:latest.svg)](https://imagelayers.io/?images=hence/go:latest 'Get your own badge on imagelayers.io')
 

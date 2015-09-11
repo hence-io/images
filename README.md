@@ -4,13 +4,36 @@ A collection of images used to build Docker containers for the Hence.io project.
 
 ## Containers
 
-The following describes the containers that are available and there inheritance chain:
+The following describes the containers that are available and their inheritance chain:
 
 ```
-| base
-├─ base-onbuild
-├─ base-buildpack
-|  └─ base-buildpack-onbuild
+| images root
+├─ base
+|  ├─ base:onbuild
+|  ├─ base:buildpack
+|  |  └─ base:buildpack-onbuild
+|  |
+|  ├─ go
+|  |  ├─ go:onbuild
+|  |  └─ mailhog
+|  |
+|  ├─ java
+|  |  └─ solr
+|  |
+|  ├─ mariadb
+|  ├─ memcached
+|  ├─ nginx
+|  |
+|  ├─ nodejs
+|  |  └─ nodejs:onbuild
+|  |
+|  ├─ php
+|  |  └─ php-drupal7
+|  |
+|  └─ varnish
+|
+├─ data
+└─ cleanup
 ```
 
 [alpinelinux]: https://www.alpinelinux.org/
