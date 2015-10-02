@@ -23,4 +23,4 @@ VOLUME [/app, "$HENCE_APP_VOL_PREFIX/logs/node-general-logs", "$HENCE_APP_VOL_PR
 
 WORKDIR /app
 
-CMD ["node"]
+ENTRYPOINT ["npm"]
