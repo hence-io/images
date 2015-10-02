@@ -98,11 +98,11 @@ then
   PHP_OPCACHE_ENABLE_FILE_OVERRIDE=1
 fi
 
-# If MYSQL_HOST is provided, then we set up phpmyadmin
-if [ -n "${MYSQL_HOST}" ]
+# If PHPMYADMIN_MYSQL_HOST is provided, then we set up phpmyadmin
+if [ -n "${PHPMYADMIN_MYSQL_HOST}" ]
 then
   rm -rf /vendor/phpmyadmin && cp -R $COMPOSER_HOME/vendor/fillup/phpmyadmin-minimal /vendor/phpmyadmin
-  sed -i "s/getenv('MYSQL_HOST') ?: 'localhost'/'${MYSQL_HOST}'/" /vendor/phpmyadmin/config.inc.php
+  sed -i "s/getenv('PHPMYADMIN_MYSQL_HOST') ?: 'localhost'/'${PHPMYADMIN_MYSQL_HOST}'/" /vendor/phpmyadmin/config.inc.php
   rm -f /app/phpmyadmin && ln -sf /vendor/phpmyadmin /app/phpmyadmin
 fi
 

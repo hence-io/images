@@ -28,7 +28,7 @@ It includes:
 
 ## Available conf environment variables [defaults]
 ```bash
-MYSQL_HOST [] Set to the name of your linked mysql container to enable PhpMyAdmin
+PHPMYADMIN_MYSQL_HOST [] Set to the name of your linked mysql container to enable PhpMyAdmin
 ```
 
 ## Authors
