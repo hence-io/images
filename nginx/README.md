@@ -21,7 +21,7 @@ This image includes some configuration presets for various applications:
 * `angular`: Preset to run an angularJS app
 * `drupal7`: Preset to run a [Drupal 7](http://drupal.org) app
 
-Use a preset by passing `-e CONFIG_PRESET=[name]` to docker run.
+Use a preset by passing `-e NGINX_CONFIG_PRESET=[name]` to docker run.
 
 In addition to that we provide different volumes to overwrite the behavior of
 Nginx. In order to customize the behavior of Nginx you can inject
@@ -38,7 +38,7 @@ loaded by the server configuration directly.
 
 ## Available nginx environment variables [defaults]
 ```bash
-CONFIG_PRESET []
+NGINX_CONFIG_PRESET []
 NGINX_PHP_ALIAS [php]
 NGINX_PROXY_PATH [rest/api]
 NGINX_PROXY_HOST [localhost]
@@ -46,10 +46,10 @@ NGINX_PROXY_PORT [3000]
 NGINX_SSL_INCLUDE [0] (Set to 1 to enable SSL)
 NGINX_SSL_CERT_FILE [] (Needs to be volume-mounted to /etc/ssl/certs/[filename])
 NGINX_SSL_CERT_KEY_FILE [] (Needs to be volume-mounted to /etc/ssl/private/[filename])
-FASTCGI_READ_TIMEOUT [300]
-FASTCGI_IGNORE_CLIENT_ABORT [off]
-CLIENT_MAX_BODY_SIZE [128m]
-CLIENT_BODY_BUFFER_SIZE [128k]
+NGINX_FASTCGI_READ_TIMEOUT [300]
+NGINX_FASTCGI_IGNORE_CLIENT_ABORT [off]
+NGINX_CLIENT_MAX_BODY_SIZE [128m]
+NGINX_CLIENT_BODY_BUFFER_SIZE [128k]
 ```
 
 ## Authors

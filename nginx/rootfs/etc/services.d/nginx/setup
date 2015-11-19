@@ -8,10 +8,10 @@ declare -x NGINX_PROXY_PORT
 declare -x NGINX_SSL_INCLUDE
 declare -x NGINX_SSL_CERT_FILE
 declare -x NGINX_SSL_CERT_KEY_FILE
-declare -x FASTCGI_READ_TIMEOUT
-declare -x FASTCGI_IGNORE_CLIENT_ABORT
-declare -x CLIENT_MAX_BODY_SIZE
-declare -x CLIENT_BODY_BUFFER_SIZE
+declare -x NGINX_FASTCGI_READ_TIMEOUT
+declare -x NGINX_FASTCGI_IGNORE_CLIENT_ABORT
+declare -x NGINX_CLIENT_MAX_BODY_SIZE
+declare -x NGINX_CLIENT_BODY_BUFFER_SIZE
 
 if [ -z "${NGINX_PHP_ALIAS}" ]
 then
@@ -49,34 +49,34 @@ then
 fi
 
 
-if [ -z "${FASTCGI_READ_TIMEOUT}" ]
+if [ -z "${NGINX_FASTCGI_READ_TIMEOUT}" ]
 then
-  FASTCGI_READ_TIMEOUT=300
+  NGINX_FASTCGI_READ_TIMEOUT=300
 fi
 
-if [ -z "${FASTCGI_IGNORE_CLIENT_ABORT}" ]
+if [ -z "${NGINX_FASTCGI_IGNORE_CLIENT_ABORT}" ]
 then
-  FASTCGI_IGNORE_CLIENT_ABORT=off
+  NGINX_FASTCGI_IGNORE_CLIENT_ABORT=off
 fi
 
-if [ -z "${CLIENT_MAX_BODY_SIZE}" ]
+if [ -z "${NGINX_CLIENT_MAX_BODY_SIZE}" ]
 then
-  CLIENT_MAX_BODY_SIZE=128m
+  NGINX_CLIENT_MAX_BODY_SIZE=128m
 fi
 
-if [ -z "${CLIENT_BODY_BUFFER_SIZE}" ]
+if [ -z "${NGINX_CLIENT_BODY_BUFFER_SIZE}" ]
 then
-  CLIENT_BODY_BUFFER_SIZE=128k
+  NGINX_CLIENT_BODY_BUFFER_SIZE=128k
 fi
 
 chown -R $HENCE_APP_USER:www-data \
   /var/lib/nginx
 
-if [ -n "${CONFIG_PRESET}" ]
+if [ -n "${NGINX_CONFIG_PRESET}" ]
 then
-  sed -i "s/presets\/default/presets\/${CONFIG_PRESET}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
+  sed -i "s/presets\/default/presets\/${NGINX_CONFIG_PRESET}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 
-  envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.conf
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf
 fi
 
 if [ "${ENABLE_SSL}" = "1" ]

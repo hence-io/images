@@ -35,10 +35,10 @@ location ~ \.php(?:${DOLLAR}|/) {
   fastcgi_index index.php;
   include $HENCE_APP_VOL_PREFIX/conf/fastcgi.conf;
   fastcgi_intercept_errors on;
-  fastcgi_read_timeout ${FASTCGI_READ_TIMEOUT};
-  fastcgi_ignore_client_abort ${FASTCGI_IGNORE_CLIENT_ABORT};
-  client_max_body_size ${CLIENT_MAX_BODY_SIZE};
-  client_body_buffer_size ${CLIENT_BODY_BUFFER_SIZE};
+  fastcgi_read_timeout ${NGINX_FASTCGI_READ_TIMEOUT};
+  fastcgi_ignore_client_abort ${NGINX_FASTCGI_IGNORE_CLIENT_ABORT};
+  client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};
+  client_body_buffer_size ${NGINX_CLIENT_BODY_BUFFER_SIZE};
 }
 
 # This matters if you use drush
