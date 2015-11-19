@@ -37,14 +37,14 @@ then
   export VARNISH_CONSOLE_SECRET=changeme
 fi
 
-if [ -z "${CONFIG_PRESET}" ]
+if [ -z "${VARNISH_CONFIG_PRESET}" ]
 then
-  export CONFIG_PRESET=default
+  export VARNISH_CONFIG_PRESET=default
 fi
 
-if [ -z "${FIRST_BYTE_TIMEOUT}" ]
+if [ -z "${VARNISH_FIRST_BYTE_TIMEOUT}" ]
 then
-  export FIRST_BYTE_TIMEOUT=60s
+  export VARNISH_FIRST_BYTE_TIMEOUT=60s
 fi
 
 # Create the secret file
@@ -53,4 +53,4 @@ then
   echo $VARNISH_CONSOLE_SECRET >> $HENCE_APP_VOL_PREFIX/conf/secret
 fi
 
-envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$CONFIG_PRESET.vcl.tmpl > $HENCE_APP_VOL_PREFIX/conf/default.vcl
+envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$VARNISH_CONFIG_PRESET.vcl.tmpl > $HENCE_APP_VOL_PREFIX/conf/default.vcl

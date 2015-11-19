@@ -19,7 +19,7 @@ This image includes some configuration presets for various applications:
 * `drupal7`: Search api preset for drupal 7 site
 * Others will be added in time
 
-Use a preset by passing `-e CONFIG_PRESET=[name]` to docker run.
+Use a preset by passing `-e VARNISH_CONFIG_PRESET=[name]` to docker run.
 
 In addition to that, you can provide your own default.vcl by mounting it at `$HENCE_APP_VOL_PREFIX/conf`
 
@@ -31,7 +31,15 @@ In addition to that, you can provide your own default.vcl by mounting it at `$HE
 
 ## Available varnish environment variables [defaults]
 ```bash
-CONFIG_PRESET []
+VARNISH_PORT [80]
+VARNISH_BACKEND_IP [172.17.42.1]
+VARNISH_BACKEND_PORT [80]
+VARNISH_STORAGE_AMOUNT [100m]
+VARNISH_SESS_TIMEOUT [20]
+VARNISH_CONSOLE_PORT [2000]
+VARNISH_CONSOLE_SECRET [changeme]
+VARNISH_CONFIG_PRESET [default]
+VARNISH_FIRST_BYTE_TIMEOUT [60s]
 ```
 
 ## Authors
