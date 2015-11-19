@@ -19,11 +19,11 @@ This image includes some configuration presets for various applications:
 * `drupal/search_api/5.x`: Search api preset for drupal 7 site
 * Others will be added in time
 
-Use a preset by passing `-e CONFIG_PRESET=[name]` to docker run.
+Use a preset by passing `-e SOLR_CONFIG_PRESET=[name]` to docker run.
 
 In addition to that, you can provide your own config files by mounting them at `$HENCE_APP_VOL_PREFIX/conf`
 
-By default, a core will be automatically created for you. The core name can be controlled by altering the `CONFIG_PRESET_PATH` environment variable.
+By default, a core will be automatically created for you. The core name can be controlled by altering the `SOLR_CONFIG_PRESET_PATH` environment variable.
 
 ### Default supervised processes:
 * s6-svscan (as PID 1)
@@ -33,8 +33,8 @@ By default, a core will be automatically created for you. The core name can be c
 
 ## Available solr environment variables [defaults]
 ```bash
-CONFIG_PRESET []
-CONFIG_PRESET_PATH [default]
+SOLR_CONFIG_PRESET []
+SOLR_CONFIG_PRESET_PATH [default]
 ```
 
 ## Authors

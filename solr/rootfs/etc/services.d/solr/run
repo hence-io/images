@@ -7,9 +7,9 @@ set -- /opt/solr/bin/solr
 
 set -- "$@" -f
 
-if [ ! "$(ls -A $HENCE_APP_VOL_PREFIX/conf)" ] && [ -z "${CONFIG_PRESET}" ] ; then
+if [ ! "$(ls -A $HENCE_APP_VOL_PREFIX/conf)" ] && [ -z "${SOLR_CONFIG_PRESET}" ] ; then
   generate_conf_files
-  export CONFIG_PRESET_PATH=basic
+  export SOLR_CONFIG_PRESET_PATH=basic
 fi
 
 if [ -f ./setup ]

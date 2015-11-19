@@ -1,36 +1,36 @@
 #!/bin/bash
 
-declare -x CONFIG_PRESET_PATH
+declare -x SOLR_CONFIG_PRESET_PATH
 
-if [ -z "${CONFIG_PRESET_PATH}" ]
+if [ -z "${SOLR_CONFIG_PRESET_PATH}" ]
 then
-  CONFIG_PRESET_PATH=default
+  SOLR_CONFIG_PRESET_PATH=default
 fi
 
 create_core_properties_file() {
-  mkdir -p $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH
+  mkdir -p $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH
 
-  CORE_PROPERTIES_FILE=$HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH/core.properties
+  CORE_PROPERTIES_FILE=$HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH/core.properties
 
   if [ ! -f $CORE_PROPERTIES_FILE ]
   then
     touch $CORE_PROPERTIES_FILE
-    echo "name=$CONFIG_PRESET_PATH" > $CORE_PROPERTIES_FILE
-    echo "dataDir=../../../../hence/solr/data/$CONFIG_PRESET_PATH" >> $CORE_PROPERTIES_FILE
+    echo "name=$SOLR_CONFIG_PRESET_PATH" > $CORE_PROPERTIES_FILE
+    echo "dataDir=../../../../hence/solr/data/$SOLR_CONFIG_PRESET_PATH" >> $CORE_PROPERTIES_FILE
 
-    mkdir $HENCE_APP_VOL_PREFIX/data/$CONFIG_PRESET_PATH
+    mkdir $HENCE_APP_VOL_PREFIX/data/$SOLR_CONFIG_PRESET_PATH
   fi
 }
 
 create_core_properties_file
 
-if [ -n "${CONFIG_PRESET}" ]
+if [ -n "${SOLR_CONFIG_PRESET}" ]
 then
-  cp -R /etc/solr/presets/$CONFIG_PRESET $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH/conf
-  ln -s $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH /opt/solr/server/solr/$CONFIG_PRESET_PATH
+  cp -R /etc/solr/presets/$SOLR_CONFIG_PRESET $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH/conf
+  ln -s $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH /opt/solr/server/solr/$SOLR_CONFIG_PRESET_PATH
 else
-  if [ -n "$(ls -A $HENCE_APP_VOL_PREFIX/conf/$CONFIG_PRESET_PATH)" ] && [ ! ]
+  if [ -n "$(ls -A $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH)" ] && [ ! ]
   then
-    ln -s $HENCE_APP_DIR/conf/$CONFIG_PRESET_PATH /opt/solr/server/solr/$CONFIG_PRESET_PATH
+    ln -s $HENCE_APP_DIR/conf/$SOLR_CONFIG_PRESET_PATH /opt/solr/server/solr/$SOLR_CONFIG_PRESET_PATH
   fi
 fi
