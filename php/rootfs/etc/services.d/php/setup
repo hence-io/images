@@ -1,6 +1,5 @@
 #!/bin/bash
 
-declare -x CONFIG_PRESET
 declare -x PHP_MEMORY_LIMIT
 declare -x PHP_POST_MAX_SIZE
 declare -x PHP_UPLOAD_MAX_FILESIZE
