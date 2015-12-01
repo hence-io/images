@@ -12,6 +12,10 @@ declare -x NGINX_FASTCGI_READ_TIMEOUT
 declare -x NGINX_FASTCGI_IGNORE_CLIENT_ABORT
 declare -x NGINX_CLIENT_MAX_BODY_SIZE
 declare -x NGINX_CLIENT_BODY_BUFFER_SIZE
+declare -x NGINX_HTPASSWD_INCLUDE
+declare -x NGINX_HTPASSWD_USER
+declare -x NGINX_HTPASSWD_PASSWORD
+declare -x NGINX_HTPASSWD_PASSWORD_ENCRYPTED
 
 if [ -z "${NGINX_PHP_ALIAS}" ]
 then
@@ -69,6 +73,21 @@ then
   NGINX_CLIENT_BODY_BUFFER_SIZE=128k
 fi
 
+if [ -z "${NGINX_HTPASSWD_USER}" ]
+then
+  NGINX_HTPASSWD_USER=hence
+fi
+
+if [ -z "${NGINX_HTPASSWD_PASSWORD}" ]
+then
+  NGINX_HTPASSWD_PASSWORD=access
+fi
+
+if [ -z "${NGINX_HTPASSWD_INCLUDE}" ]
+then
+  NGINX_HTPASSWD_INCLUDE=""
+fi
+
 chown -R $HENCE_APP_USER:www-data \
   /var/lib/nginx
 
@@ -79,13 +98,26 @@ then
   envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf
 fi
 
-if [ "${ENABLE_SSL}" = "1" ]
+if [ "${NGINX_HTPASSWD_ENABLE}" = "1" ]
+then
+  NGINX_HTPASSWD_INCLUDE="include $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf;"
+
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/.passwd.tmpl > $HENCE_APP_VOL_PREFIX/conf/.passwd
+
+  NGINX_HTPASSWD_PASSWORD_ENCRYPTED=`openssl passwd -apr1 -in $HENCE_APP_VOL_PREFIX/conf/.passwd`
+
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/.htpasswd.tmpl > $HENCE_APP_VOL_PREFIX/conf/.htpasswd
+fi
+
+if [ "${NGINX_SSL_ENABLE}" = "1" ]
 then
   NGINX_SSL_INCLUDE="include $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf;"
 
   envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf
 fi
 
+sed -i "s/\$NGINX_HTPASSWD_INCLUDE/${NGINX_HTPASSWD_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 sed -i "s/\$NGINX_SSL_INCLUDE/${NGINX_SSL_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 
 envsubst < $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/nginx.conf

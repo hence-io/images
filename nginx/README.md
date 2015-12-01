@@ -43,13 +43,16 @@ NGINX_PHP_ALIAS [php]
 NGINX_PROXY_PATH [rest/api]
 NGINX_PROXY_HOST [localhost]
 NGINX_PROXY_PORT [3000]
-NGINX_SSL_INCLUDE [0] (Set to 1 to enable SSL)
+NGINX_SSL_ENABLE [0] (Set to 1 to enable SSL)
 NGINX_SSL_CERT_FILE [] (Needs to be volume-mounted to /etc/ssl/certs/[filename])
 NGINX_SSL_CERT_KEY_FILE [] (Needs to be volume-mounted to /etc/ssl/private/[filename])
 NGINX_FASTCGI_READ_TIMEOUT [300]
 NGINX_FASTCGI_IGNORE_CLIENT_ABORT [off]
 NGINX_CLIENT_MAX_BODY_SIZE [128m]
 NGINX_CLIENT_BODY_BUFFER_SIZE [128k]
+NGINX_HTPASSWD_ENABLE [0] (Set to 1 to enable .htpasswd basic auth)
+NGINX_HTPASSWD_USER [hence]
+NGINX_HTPASSWD_PASSWORD [access]
 ```
 
 ## Authors
