@@ -12,8 +12,10 @@ RUN apk --update add \
     composer global require drush/drush:dev-master && \
     composer global require fillup/phpmyadmin-minimal:4.4.13.1 && \
     ln -sf $COMPOSER_HOME/vendor/bin/drush.php /usr/bin/drush && \
-    curl -LSs http://drupalconsole.com/installer | php && \
-    mv console.phar /usr/bin/drupal
+    curl https://drupalconsole.com/installer -L -o drupal.phar && \
+    mv drupal.phar /usr/bin/drupal && \
+    chmod +x /usr/bin/drupal && \
+    drupal init
 
 EXPOSE 22
 
