@@ -15,6 +15,10 @@ location = /robots.txt {
     access_log off;
 }
 
+location /phpmyadmin {
+  index index.php;
+}
+
 # Very rarely should these ever be accessed outside of your lan
 location ~* \.(txt|log)${DOLLAR} {
     allow 192.168.0.0/16;
