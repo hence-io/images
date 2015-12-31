@@ -21,10 +21,11 @@ echo "Setup Complete"
 PROGRAM_OPTIONS="--php-ini=$HENCE_APP_DIR/conf/php.ini --fpm-config=$HENCE_APP_DIR/conf/php-fpm.conf $EXTRA_OPTIONS"
 set -- $@ $PROGRAM_OPTIONS
 
-chown -R $HENCE_APP_USER:$HENCE_APP_USER \
+chown -Rf $HENCE_APP_USER:$HENCE_APP_USER \
   $HENCE_APP_VOL_PREFIX/conf/ \
   /config/ \
   /private/ \
+  /tmp/ \
   $HENCE_APP_VOL_PREFIX/logs/ || true
 
 echo "Perm settings Complete"
