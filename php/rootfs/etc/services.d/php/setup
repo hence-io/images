@@ -5,6 +5,7 @@ declare -x PHP_POST_MAX_SIZE
 declare -x PHP_UPLOAD_MAX_FILESIZE
 declare -x PHP_MAX_EXECUTION_TIME
 declare -x PHP_MAX_INPUT_TIME
+declare -x PHP_MAX_INPUT_VARS
 declare -x PHP_DATE_TIMEZONE
 declare -x PHP_REALPATH_CACHE_SIZE
 declare -x PHP_OPCACHE_ENABLE
@@ -40,6 +41,11 @@ fi
 if [ -z "${PHP_MAX_INPUT_TIME}" ]
 then
   PHP_MAX_INPUT_TIME=180
+fi
+
+if [ -z "${PHP_MAX_INPUT_VARS}" ]
+then
+  PHP_MAX_INPUT_VARS=1000
 fi
 
 if [ -z "${PHP_DATE_TIMEZONE}" ]
