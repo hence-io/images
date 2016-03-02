@@ -1,0 +1,5 @@
+backend server${INDEX} {
+    .host = "${IP}";
+    .port = "${VARNISH_BACKEND_PORT}";
+    .first_byte_timeout = ${VARNISH_FIRST_BYTE_TIMEOUT};
+}

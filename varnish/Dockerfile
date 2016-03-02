@@ -8,7 +8,7 @@ ENV HENCE_APP_NAME=varnish \
 ENV HENCE_APP_DIR=$HENCE_PREFIX/$HENCE_APP_NAME \
     HENCE_APP_VOL_PREFIX=/hence/$HENCE_APP_NAME
 
-RUN apk add --update \
+RUN apk --update add \
   varnish && \
   rm -rf /var/cache/apk/*
 

@@ -1,6 +1,8 @@
 #!/bin/bash
 
 export DOLLAR='$'
+export VARNISH_HA_SERVERS=""
+export VARNISH_HA_BACKENDS=""
 
 if [ -z "${VARNISH_PORT}" ]
 then
@@ -52,5 +54,30 @@ if [ ! -f "$HENCE_APP_VOL_PREFIX/conf/secret" ]
 then
   echo $VARNISH_CONSOLE_SECRET >> $HENCE_APP_VOL_PREFIX/conf/secret
 fi
+
+if [ -n "${VARNISH_RANCHER_HA}" ]
+then
+  BACKEND_COUNT=`curl -s http://rancher-metadata/2015-12-19/containers | grep -c ${VARNISH_BACKEND_IP}`
+  i=1
+  export VARNISH_HA_SERVERS=""
+
+  rm -f $HENCE_APP_VOL_PREFIX/conf/backends
+  touch $HENCE_APP_VOL_PREFIX/conf/backends
+
+  while [[ $i -le $BACKEND_COUNT ]]
+  do
+    export INDEX=$((i-1))
+    i=$((i+1))
+
+    export IP=`curl -s http://rancher-metadata/2015-12-19/services/app-lb/containers/$INDEX/primary_ip`
+
+    envsubst < $HENCE_APP_VOL_PREFIX/conf/templates/backend.tmpl >> $HENCE_APP_VOL_PREFIX/conf/backends
+
+    VARNISH_HA_SERVERS="${VARNISH_HA_SERVERS}
+    director.add_backend(server$INDEX);"
+
+  done
+fi
+
 
 envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$VARNISH_CONFIG_PRESET.vcl.tmpl > $HENCE_APP_VOL_PREFIX/conf/default.vcl
