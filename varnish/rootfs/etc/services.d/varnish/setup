@@ -49,6 +49,41 @@ then
   export VARNISH_FIRST_BYTE_TIMEOUT=60s
 fi
 
+if [ -z "${VARNISH_PROBE_URL}" ]
+then
+  export VARNISH_PROBE_URL=/
+fi
+
+if [ -z "${VARNISH_PROBE_TIMEOUT}" ]
+then
+  export VARNISH_PROBE_TIMEOUT=2s
+fi
+
+if [ -z "${VARNISH_PROBE_INTERVAL}" ]
+then
+  export VARNISH_PROBE_INTERVAL=5s
+fi
+
+if [ -z "${VARNISH_PROBE_WINDOW}" ]
+then
+  export VARNISH_PROBE_WINDOW=8
+fi
+
+if [ -z "${VARNISH_PROBE_THRESHOLD}" ]
+then
+  export VARNISH_PROBE_THRESHOLD=3
+fi
+
+if [ -z "${VARNISH_HA_DIRECTOR_TYPE}" ]
+then
+  export VARNISH_HA_DIRECTOR_TYPE=round_robin
+fi
+
+if [ -z "${VARNISH_HA_DIRECTOR_BACKEND_ARG}" ]
+then
+  export VARNISH_HA_DIRECTOR_BACKEND_ARG=""
+fi
+
 # Create the secret file
 if [ ! -f "$HENCE_APP_VOL_PREFIX/conf/secret" ]
 then
@@ -73,8 +108,15 @@ then
 
     envsubst < $HENCE_APP_VOL_PREFIX/conf/templates/backend.tmpl >> $HENCE_APP_VOL_PREFIX/conf/backends
 
+    if [ "$VARNISH_HA_DIRECTOR_TYPE" = "round_robin" ]
+    then
+      WEIGHT_ARG=""
+    else
+      WEIGHT_ARG=", 1.0"
+    fi
+
     VARNISH_HA_SERVERS="${VARNISH_HA_SERVERS}
-    director.add_backend(server$INDEX);"
+    vdir.add_backend(server$INDEX$WEIGHT_ARG);"
 
   done
 fi

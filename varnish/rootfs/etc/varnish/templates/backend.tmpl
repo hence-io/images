@@ -2,4 +2,11 @@ backend server${INDEX} {
     .host = "${IP}";
     .port = "${VARNISH_BACKEND_PORT}";
     .first_byte_timeout = ${VARNISH_FIRST_BYTE_TIMEOUT};
+    .probe = {
+        .url = "${VARNISH_PROBE_URL}";
+        .timeout = ${VARNISH_PROBE_TIMEOUT};
+        .interval = ${VARNISH_PROBE_INTERVAL};
+        .window = ${VARNISH_PROBE_WINDOW};
+        .threshold = ${VARNISH_PROBE_THRESHOLD};
+    }
 }

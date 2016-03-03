@@ -5,13 +5,8 @@ import directors;    # load the directors
 include "${HENCE_APP_VOL_PREFIX}/conf/backends";
 
 sub vcl_init {
-    new director = directors.round_robin();
+    new vdir = directors.${VARNISH_HA_DIRECTOR_TYPE}();
     ${VARNISH_HA_SERVERS}
-}
-
-sub vcl_recv {
-    # send all traffic to the director director:
-    set req.backend_hint = director.backend();
 }
 
 sub vcl_recv {
@@ -22,6 +17,9 @@ sub vcl_recv {
 
     # Return (pass) instructs Varnish not to cache the request
     # when the condition is met.
+
+    # send all traffic to the vdir director:
+    set req.backend_hint = vdir.backend(${VARNISH_HA_DIRECTOR_BACKEND_ARG});
 
     ## ADMIN PAGES ##
 

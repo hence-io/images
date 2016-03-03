@@ -12,6 +12,7 @@ RUN apk --update add \
   varnish && \
   rm -rf /var/cache/apk/*
 
+# Add rootfs
 COPY rootfs /
 
 RUN sh $HENCE_PREFIX/install.sh && \
