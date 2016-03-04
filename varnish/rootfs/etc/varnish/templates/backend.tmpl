@@ -1,5 +1,6 @@
 backend server${INDEX} {
     .host = "${IP}";
+    .host_header = "${VARNISH_BACKEND_HOST_HEADER}";
     .port = "${VARNISH_BACKEND_PORT}";
     .first_byte_timeout = ${VARNISH_FIRST_BYTE_TIMEOUT};
     .probe = {
