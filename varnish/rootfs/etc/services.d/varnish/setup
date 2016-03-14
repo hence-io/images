@@ -104,12 +104,25 @@ then
   rm -f $HENCE_APP_VOL_PREFIX/conf/backends
   touch $HENCE_APP_VOL_PREFIX/conf/backends
 
+  CURRENT_HOST_UUID=`curl -s http://rancher-metadata/2015-12-19/self/host/uuid`
+  echo "Current Host UUID: $CURRENT_HOST_UUID"
+
   while [[ $i -le $BACKEND_COUNT ]]
   do
     export INDEX=$((i-1))
     i=$((i+1))
 
-    export IP=`curl -s http://rancher-metadata/2015-12-19/services/app-lb/containers/$INDEX/primary_ip`
+    # Check if same host
+    BACKEND_HOST_UUID=`curl -s http://rancher-metadata/2015-12-19/services/$VARNISH_BACKEND_IP/containers/$INDEX/host_uuid`
+    echo "Backend Host UUID: $BACKEND_HOST_UUID"
+
+    if [[ -n "$VARNISH_HA_DIRECTOR_BACKEND_PRESERVE_HOST" && "$BACKEND_HOST_UUID" != "$CURRENT_HOST_UUID" ]]
+    then
+      continue
+    fi
+
+    export IP=`curl -s http://rancher-metadata/2015-12-19/services/$VARNISH_BACKEND_IP/containers/$INDEX/primary_ip`
+    echo "Adding Backend: $IP"
 
     envsubst < $HENCE_APP_VOL_PREFIX/conf/templates/backend.tmpl >> $HENCE_APP_VOL_PREFIX/conf/backends
 
