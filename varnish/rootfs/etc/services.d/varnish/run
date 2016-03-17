@@ -18,6 +18,9 @@ fi
 PROGRAM_OPTIONS="-F \
                 -a 0.0.0.0:$VARNISH_PORT \
                 -p timeout_idle=$VARNISH_SESS_TIMEOUT \
+                -p thread_pools=$VARNISH_THREAD_POOLS \
+                -p thread_pool_min=$VARNISH_THREAD_POOL_MIN \
+                -p thread_pool_max=$VARNISH_THREAD_POOL_MAX \
                 -f $HENCE_APP_VOL_PREFIX/conf/default.vcl \
                 -s malloc,$VARNISH_STORAGE_AMOUNT \
                 -n $HENCE_APP_VOL_PREFIX/data/processes \

@@ -34,6 +34,21 @@ then
   export VARNISH_SESS_TIMEOUT=20
 fi
 
+if [ -z "${VARNISH_THREAD_POOLS}" ]
+then
+  export VARNISH_THREAD_POOLS=2
+fi
+
+if [ -z "${VARNISH_THREAD_POOL_MIN}" ]
+then
+  export VARNISH_THREAD_POOL_MIN=100
+fi
+
+if [ -z "${VARNISH_THREAD_POOL_MAX}" ]
+then
+  export VARNISH_THREAD_POOL_MAX=5000
+fi
+
 if [ -z "${VARNISH_CONSOLE_PORT}" ]
 then
   export VARNISH_CONSOLE_PORT=2000
@@ -61,7 +76,7 @@ fi
 
 if [ -z "${VARNISH_PROBE_TIMEOUT}" ]
 then
-  export VARNISH_PROBE_TIMEOUT=2s
+  export VARNISH_PROBE_TIMEOUT=1s
 fi
 
 if [ -z "${VARNISH_PROBE_INTERVAL}" ]
@@ -71,7 +86,7 @@ fi
 
 if [ -z "${VARNISH_PROBE_WINDOW}" ]
 then
-  export VARNISH_PROBE_WINDOW=8
+  export VARNISH_PROBE_WINDOW=5
 fi
 
 if [ -z "${VARNISH_PROBE_THRESHOLD}" ]
