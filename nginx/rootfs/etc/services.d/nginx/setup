@@ -19,6 +19,7 @@ declare -x NGINX_HTPASSWD_PASSWORD_ENCRYPTED
 
 if [ -z "${NGINX_PHP_ALIAS}" ]
 then
+  NGINX_PHP_ALIAS_NOT_PROVIDED=true
   NGINX_PHP_ALIAS=php
 fi
 
@@ -88,6 +89,16 @@ then
   NGINX_HTPASSWD_INCLUDE=""
 fi
 
+# Resolve php alias if provided to actual IP.  Needed for HA setups with sidekicks to avoid race condtion errors.
+if [ -z "$NGINX_PHP_ALIAS_NOT_PROVIDED"]
+then
+  until ping -c 1 $NGINX_PHP_ALIAS
+  do
+    echo "Trying to connect with $NGINX_PHP_ALIAS..."
+  done
+  NGINX_PHP_ALIAS=`ping -q -c 1 -t 1 $NGINX_PHP_ALIAS | grep -m 1 PING | cut -d "(" -f2 | cut -d ")" -f1`
+fi
+
 chown -R $HENCE_APP_USER:www-data \
   /var/lib/nginx
 
@@ -119,5 +130,7 @@ fi
 
 sed -i "s/\$NGINX_HTPASSWD_INCLUDE/${NGINX_HTPASSWD_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 sed -i "s/\$NGINX_SSL_INCLUDE/${NGINX_SSL_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
+
+
 
 envsubst < $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/nginx.conf
