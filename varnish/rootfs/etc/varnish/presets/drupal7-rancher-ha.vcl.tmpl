@@ -27,6 +27,21 @@ sub vcl_recv {
 
   set req.backend_hint = vdir.backend(${VARNISH_HA_DIRECTOR_BACKEND_ARG});
 
+  ## VENDOR URLS ##
+
+  # Here we filter out all supporting vendor urls
+  if (req.url ~ "^/phpmyadmin{DOLLAR}" ||req.url ~ "^/phpmyadmin/.*${DOLLAR}") {
+    return (pass);
+  }
+
+  ## BACKUP AND MIGRATE MODULE ##
+
+  # Backup and Migrate is a very popular Drupal module that needs to be excluded
+  # It won't work with Varnish
+  if (req.url ~ "^/admin/content/backup_migrate/export") {
+    return (pipe);
+  }
+
   ## ADMIN PAGES ##
 
   # Here we filter out all URLs containing Drupal administrative sections
@@ -39,12 +54,6 @@ sub vcl_recv {
       req.url ~ "^/flag/.*${DOLLAR}" ||
       req.url ~ "^.*/ajax/.*${DOLLAR}" ||
       req.url ~ "^.*/ahah/.*${DOLLAR}") {
-    return (pass);
-  }
-
-  # Here we filter out all supporting vendor urls
-  if (req.url ~ "^/phpmyadmin{DOLLAR}" ||
-      req.url ~ "^/phpmyadmin/.*${DOLLAR}") {
     return (pass);
   }
 
