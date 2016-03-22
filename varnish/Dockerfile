@@ -19,4 +19,4 @@ RUN sh $HENCE_PREFIX/install.sh && \
 
 EXPOSE 80 2000
 
-VOLUME ["$HENCE_APP_VOL_PREFIX/conf", "$HENCE_APP_VOL_PREFIX/data", "$HENCE_APP_VOL_PREFIX/logs/varnish-general-logs", "$HENCE_APP_VOL_PREFIX/logs/varnish-error-logs"]
+VOLUME ["$HENCE_APP_VOL_PREFIX/conf", "$HENCE_APP_VOL_PREFIX/logs/varnish-general-logs", "$HENCE_APP_VOL_PREFIX/logs/varnish-error-logs"]
