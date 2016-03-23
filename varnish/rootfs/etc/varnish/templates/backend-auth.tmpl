@@ -1,0 +1,17 @@
+backend server${INDEX} {
+    .host = "${IP}";
+    .host_header = "${VARNISH_BACKEND_HOST_HEADER}";
+    .port = "${VARNISH_BACKEND_PORT}";
+    .first_byte_timeout = ${VARNISH_FIRST_BYTE_TIMEOUT};
+    .probe = {
+        .request =
+            "GET ${VARNISH_PROBE_URL} HTTP/1.1"
+            "Host: ${VARNISH_BACKEND_HOST_HEADER}"
+            "Authorization: Basic ${AUTH_ENCRYPTED}"
+            "Connection: close";
+        .timeout = ${VARNISH_PROBE_TIMEOUT};
+        .interval = ${VARNISH_PROBE_INTERVAL};
+        .window = ${VARNISH_PROBE_WINDOW};
+        .threshold = ${VARNISH_PROBE_THRESHOLD};
+    }
+}

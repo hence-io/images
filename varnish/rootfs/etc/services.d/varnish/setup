@@ -113,6 +113,13 @@ fi
 if [ -n "${VARNISH_RANCHER_HA}" ]
 then
   BACKEND_COUNT=`curl -s http://rancher-metadata/2015-12-19/containers | grep -c ${VARNISH_BACKEND_IP}`
+  BACKEND_TEMPLATE='backend.tmpl'
+
+  if [ -n "${VARNISH_RANCHER_HA_AUTH_USER}" ] && [ -n "${VARNISH_RANCHER_HA_AUTH_PASS}" ]; then
+    BACKEND_TEMPLATE='backend-auth.tmpl'
+    export AUTH_ENCRYPTED=`echo -n "${VARNISH_RANCHER_HA_AUTH_USER}:${VARNISH_RANCHER_HA_AUTH_PASS}" | base64`
+  fi
+
   i=1
   export VARNISH_HA_SERVERS=""
 
@@ -139,7 +146,7 @@ then
     export IP=`curl -s http://rancher-metadata/2015-12-19/services/$VARNISH_BACKEND_IP/containers/$INDEX/primary_ip`
     echo "Adding Backend: $IP"
 
-    envsubst < $HENCE_APP_VOL_PREFIX/conf/templates/backend.tmpl >> $HENCE_APP_VOL_PREFIX/conf/backends
+    envsubst < $HENCE_APP_VOL_PREFIX/conf/templates/$BACKEND_TEMPLATE >> $HENCE_APP_VOL_PREFIX/conf/backends
 
     if [ "$VARNISH_HA_DIRECTOR_TYPE" = "round_robin" ]
     then
