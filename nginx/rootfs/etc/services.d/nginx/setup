@@ -104,7 +104,7 @@ fi
 
 
 # Resolve php alias if provided to actual IP.  Needed for HA setups with sidekicks to avoid race condtion errors.
-if [ -z "$NGINX_PHP_ALIAS_NOT_PROVIDED"]
+if [ -z "$NGINX_PHP_ALIAS_NOT_PROVIDED" ]
 then
   until ping -c 1 $NGINX_PHP_ALIAS
   do
