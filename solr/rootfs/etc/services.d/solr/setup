@@ -27,10 +27,10 @@ create_core_properties_file
 if [ -n "${SOLR_CONFIG_PRESET}" ]
 then
   cp -R /etc/solr/presets/$SOLR_CONFIG_PRESET $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH/conf
-  ln -s $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH /opt/solr/server/solr/$SOLR_CONFIG_PRESET_PATH
+  ln -sf $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH /opt/solr/server/solr/$SOLR_CONFIG_PRESET_PATH
 else
-  if [ -n "$(ls -A $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH)" ] && [ ! ]
+  if [ -n "$(ls -A $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH)" ]
   then
-    ln -s $HENCE_APP_DIR/conf/$SOLR_CONFIG_PRESET_PATH /opt/solr/server/solr/$SOLR_CONFIG_PRESET_PATH
+    ln -sf $HENCE_APP_VOL_PREFIX/conf/$SOLR_CONFIG_PRESET_PATH /opt/solr/server/solr/$SOLR_CONFIG_PRESET_PATH
   fi
 fi
