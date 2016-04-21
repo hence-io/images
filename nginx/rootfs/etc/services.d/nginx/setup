@@ -16,6 +16,8 @@ declare -x NGINX_HTPASSWD_INCLUDE
 declare -x NGINX_HTPASSWD_USER
 declare -x NGINX_HTPASSWD_PASSWORD
 declare -x NGINX_HTPASSWD_PASSWORD_ENCRYPTED
+declare -x NGINX_DOMAIN_REDIRECT
+declare -x NGINX_REDIRECT_TYPE
 
 if [ -z "${NGINX_PHP_ALIAS}" ]
 then
@@ -89,8 +91,20 @@ then
   NGINX_HTPASSWD_INCLUDE=""
 fi
 
+if [ -z "${NGINX_DOMAIN_REDIRECT}" ]
+then
+  NGINX_DOMAIN_REDIRECT=""
+fi
+
+if [ -z "${NGINX_REDIRECT_TYPE}" ]
+then
+  NGINX_REDIRECT_TYPE="302"
+fi
+
+
+
 # Resolve php alias if provided to actual IP.  Needed for HA setups with sidekicks to avoid race condtion errors.
-if [ -z "$NGINX_PHP_ALIAS_NOT_PROVIDED"]
+if [ -z "$NGINX_PHP_ALIAS_NOT_PROVIDED" ]
 then
   until ping -c 1 $NGINX_PHP_ALIAS
   do
