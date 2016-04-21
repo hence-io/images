@@ -104,7 +104,6 @@ location ~ [^/]\.php(/|${DOLLAR}) {
   }
   # This is a robust solution for path info security issue and works with "cgi.fix_pathinfo = 1" in /etc/php.ini (default)
 
-  include fastcgi_params;
   fastcgi_param SCRIPT_FILENAME ${DOLLAR}document_root${DOLLAR}fastcgi_script_name;
 
   fastcgi_pass ${NGINX_PHP_ALIAS}:9000;
