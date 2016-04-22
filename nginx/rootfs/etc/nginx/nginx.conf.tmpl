@@ -29,6 +29,7 @@ http {
   include /etc/nginx/custom.d/*.conf;
 
   server {
+    $NGINX_STATUS_INCLUDE
     $NGINX_HTPASSWD_INCLUDE
     $NGINX_SSL_INCLUDE
     include $HENCE_APP_VOL_PREFIX/conf/presets/default.conf;
