@@ -9,7 +9,7 @@ RUN apk --update add \
     mariadb-common \
     mariadb-client && \
     rm -rf /var/cache/apk/* && \
-    composer global require drush/drush:dev-master && \
+    composer global require drush/drush:8.1.2 && \
     composer global require fillup/phpmyadmin-minimal:4.4.13.1 && \
     ln -sf $COMPOSER_HOME/vendor/bin/drush.php /usr/bin/drush && \
     curl https://drupalconsole.com/installer -L -o drupal.phar && \
