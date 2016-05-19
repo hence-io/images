@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export DOLLAR="$" # Needed to keep envsubst from destroying php env variables in conf.tmpl files
+
+# ini settings
 declare -x PHP_MEMORY_LIMIT
 declare -x PHP_POST_MAX_SIZE
 declare -x PHP_UPLOAD_MAX_FILESIZE
@@ -18,6 +21,14 @@ declare -x PHP_OPCACHE_VALIDATE_TIMESTAMPS
 declare -x PHP_OPCACHE_REVALIDATE_FREQ
 declare -x PHP_OPCACHE_FAST_SHUTDOWN
 declare -x PHP_OPCACHE_ENABLE_FILE_OVERRIDE
+
+# fpm settings
+declare -x PHP_PM_MIN_SPARE_SERVERS
+declare -x PHP_PM_MAX_SPARE_SERVERS
+declare -x PHP_PM_MAX_CHILDREN
+declare -x PHP_PM_MAX_REQUESTS
+declare -x PHP_RLIMIT_CORE
+declare -x PHP_REQUEST_TERMINATE_TIMEOUT
 
 if [ -z "${PHP_MEMORY_LIMIT}" ]
 then
@@ -109,6 +120,36 @@ then
   PHP_OPCACHE_ENABLE_FILE_OVERRIDE=1
 fi
 
+if [ -z "${PHP_PM_MIN_SPARE_SERVERS}" ]
+then
+  PHP_PM_MIN_SPARE_SERVERS=8
+fi
+
+if [ -z "${PHP_PM_MAX_SPARE_SERVERS}" ]
+then
+  PHP_PM_MAX_SPARE_SERVERS=16
+fi
+
+if [ -z "${PHP_PM_MAX_CHILDREN}" ]
+then
+  PHP_PM_MAX_CHILDREN=16
+fi
+
+if [ -z "${PHP_PM_MAX_REQUESTS}" ]
+then
+  PHP_PM_MAX_REQUESTS=1500
+fi
+
+if [ -z "${PHP_RLIMIT_CORE}" ]
+then
+  PHP_RLIMIT_CORE=65536
+fi
+
+if [ -z "${PHP_REQUEST_TERMINATE_TIMEOUT}" ]
+then
+  PHP_REQUEST_TERMINATE_TIMEOUT=300
+fi
+
 # If PHPMYADMIN_MYSQL_HOST is provided, then we set up phpmyadmin
 if [ -n "${PHPMYADMIN_MYSQL_HOST}" ]
 then
@@ -116,5 +157,8 @@ then
   sed -i "s/getenv('MYSQL_HOST') ?: 'localhost'/'${PHPMYADMIN_MYSQL_HOST}'/" /vendor/phpmyadmin/config.inc.php
   rm -f /app/phpmyadmin && ln -sf /vendor/phpmyadmin /app/phpmyadmin
 fi
+
+
+envsubst < $HENCE_APP_VOL_PREFIX/conf/pool.d/www.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/pool.d/www.conf
 
 envsubst < $HENCE_APP_VOL_PREFIX/conf/php.ini.tmpl > $HENCE_APP_VOL_PREFIX/conf/php.ini
