@@ -18,6 +18,7 @@ declare -x NGINX_HTPASSWD_PASSWORD
 declare -x NGINX_HTPASSWD_PASSWORD_ENCRYPTED
 declare -x NGINX_DOMAIN_REDIRECT
 declare -x NGINX_REDIRECT_TYPE
+declare -x NGINX_STATUS_INCLUDE
 
 if [ -z "${NGINX_PHP_ALIAS}" ]
 then
@@ -54,7 +55,6 @@ if [ -z "${NGINX_SSL_CERT_KEY_FILE}" ]
 then
   NGINX_SSL_CERT_KEY_FILE=""
 fi
-
 
 if [ -z "${NGINX_FASTCGI_READ_TIMEOUT}" ]
 then
@@ -101,7 +101,10 @@ then
   NGINX_REDIRECT_TYPE="302"
 fi
 
-
+if [ -z "${NGINX_STATUS_INCLUDE}" ]
+then
+  NGINX_STATUS_INCLUDE=""
+fi
 
 # Resolve php alias if provided to actual IP.  Needed for HA setups with sidekicks to avoid race condtion errors.
 if [ -z "$NGINX_PHP_ALIAS_NOT_PROVIDED" ]
@@ -120,6 +123,7 @@ if [ -n "${NGINX_CONFIG_PRESET}" ]
 then
   sed -i "s/presets\/default/presets\/${NGINX_CONFIG_PRESET}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 
+  rm -f $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf
   envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf
 fi
 
@@ -127,11 +131,13 @@ if [ "${NGINX_HTPASSWD_ENABLE}" = "1" ]
 then
   NGINX_HTPASSWD_INCLUDE="include $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf;"
 
+  rm -f $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf $HENCE_APP_VOL_PREFIX/conf/.passwd
   envsubst < $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf
   envsubst < $HENCE_APP_VOL_PREFIX/conf/.passwd.tmpl > $HENCE_APP_VOL_PREFIX/conf/.passwd
 
   NGINX_HTPASSWD_PASSWORD_ENCRYPTED=`openssl passwd -apr1 -in $HENCE_APP_VOL_PREFIX/conf/.passwd`
 
+  rm $HENCE_APP_VOL_PREFIX/conf/.htpasswd
   envsubst < $HENCE_APP_VOL_PREFIX/conf/.htpasswd.tmpl > $HENCE_APP_VOL_PREFIX/conf/.htpasswd
 fi
 
@@ -139,12 +145,21 @@ if [ "${NGINX_SSL_ENABLE}" = "1" ]
 then
   NGINX_SSL_INCLUDE="include $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf;"
 
+  rm -f $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf
   envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/ssl.conf
 fi
 
+if [ "${NGINX_STATUS_ENABLE}" = "1" ]
+then
+  NGINX_STATUS_INCLUDE="include $HENCE_APP_VOL_PREFIX/conf/presets/status.conf;"
+
+  rm -f $HENCE_APP_VOL_PREFIX/conf/presets/status.conf
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/status.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/status.conf
+fi
+
+sed -i "s/\$NGINX_STATUS_INCLUDE/${NGINX_STATUS_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 sed -i "s/\$NGINX_HTPASSWD_INCLUDE/${NGINX_HTPASSWD_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 sed -i "s/\$NGINX_SSL_INCLUDE/${NGINX_SSL_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
 
-
-
+rm -f $HENCE_APP_VOL_PREFIX/conf/nginx.conf
 envsubst < $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/nginx.conf
