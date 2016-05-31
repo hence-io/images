@@ -33,6 +33,7 @@ declare -x PHP_REQUEST_TERMINATE_TIMEOUT
 # newrelic settings
 declare -x NR_INSTALL_SILENT
 declare -x NR_INSTALL_KEY
+declare -x NR_APP_NAME
 
 if [ -z "${PHP_MEMORY_LIMIT}" ]
 then
@@ -164,6 +165,11 @@ then
   NR_INSTALL_KEY=""
 fi
 
+if [ -z "${NR_APP_NAME}" ]
+then
+  NR_APP_NAME="PHP Application"
+fi
+
 # If PHPMYADMIN_MYSQL_HOST is provided, then we set up phpmyadmin
 if [ -n "${PHPMYADMIN_MYSQL_HOST}" ]
 then
@@ -176,6 +182,11 @@ if [ "${NR_INSTALL_SILENT}" = "true" -a -n "${NR_INSTALL_KEY}" ]
 then
   cd /etc/newrelic
   ./newrelic-install install
+
+  if [ -n "${NR_APP_NAME}" ]
+  then
+    sed -i -e "s/PHP\ Application/${NR_APP_NAME}/g" /etc/php/conf.d/newrelic.ini
+  fi
 fi
 
 
