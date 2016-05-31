@@ -30,6 +30,10 @@ declare -x PHP_PM_MAX_REQUESTS
 declare -x PHP_RLIMIT_CORE
 declare -x PHP_REQUEST_TERMINATE_TIMEOUT
 
+# newrelic settings
+declare -x NR_INSTALL_SILENT
+declare -x NR_INSTALL_KEY
+
 if [ -z "${PHP_MEMORY_LIMIT}" ]
 then
   PHP_MEMORY_LIMIT=512M
@@ -150,12 +154,28 @@ then
   PHP_REQUEST_TERMINATE_TIMEOUT=300
 fi
 
+if [ -z "${NR_INSTALL_SILENT}" ]
+then
+  NR_INSTALL_SILENT=false
+fi
+
+if [ -z "${NR_INSTALL_KEY}" ]
+then
+  NR_INSTALL_KEY=""
+fi
+
 # If PHPMYADMIN_MYSQL_HOST is provided, then we set up phpmyadmin
 if [ -n "${PHPMYADMIN_MYSQL_HOST}" ]
 then
   rm -rf /vendor/phpmyadmin && cp -R $COMPOSER_HOME/vendor/fillup/phpmyadmin-minimal /vendor/phpmyadmin
   sed -i "s/getenv('MYSQL_HOST') ?: 'localhost'/'${PHPMYADMIN_MYSQL_HOST}'/" /vendor/phpmyadmin/config.inc.php
   rm -f /app/phpmyadmin && ln -sf /vendor/phpmyadmin /app/phpmyadmin
+fi
+
+if [ "${NR_INSTALL_SILENT}" = "true" -a -n "${NR_INSTALL_KEY}" ]
+then
+  cd /etc/newrelic
+  ./newrelic-install install
 fi
 
 
