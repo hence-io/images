@@ -178,10 +178,14 @@ then
   rm -f /app/phpmyadmin && ln -sf /vendor/phpmyadmin /app/phpmyadmin
 fi
 
-if [ "${NR_INSTALL_SILENT}" = "true" -a -n "${NR_INSTALL_KEY}" ]
+# Install newrelic PHP agent if install key is present and it's not already installed
+if [ ! -f /etc/newrelic/newrelic.installed  -a -n "${NR_INSTALL_KEY}" ]
 then
-  cd /etc/newrelic
-  ./newrelic-install install
+  NR_INSTALL_SILENT=true
+
+  /etc/newrelic/newrelic-install install
+
+  touch /etc/newrelic/newrelic.installed
 
   if [ -n "${NR_APP_NAME}" ]
   then
