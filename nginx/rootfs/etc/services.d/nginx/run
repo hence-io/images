@@ -20,12 +20,18 @@ if [ ! "$(ls -A /app)" ]; then
   cp -r $HENCE_APP_DIR/html.defaults/* /app
 fi
 
-chown -Rf $HENCE_APP_USER:$HENCE_APP_USER \
-  $HENCE_APP_VOL_PREFIX/logs/ \
-  $HENCE_APP_VOL_PREFIX/conf/ \
-  /etc/ssl/ \
-  /vendor/ \
-  /app/ || true
+/bin/bash <<'EOF'
+  echo "excluding $NGINX_APP_CHOWN_EXCLUSIONS_GLOB"
+
+  shopt -s extglob
+
+  chown -Rf $HENCE_APP_USER:$HENCE_APP_USER \
+    $HENCE_APP_VOL_PREFIX/logs/ \
+    $HENCE_APP_VOL_PREFIX/conf/ \
+    /etc/ssl/ \
+    /vendor/ \
+    /app/!($NGINX_APP_CHOWN_EXCLUSIONS_GLOB) || true
+EOF
 
 print_welcome_page
 

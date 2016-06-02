@@ -19,6 +19,7 @@ declare -x NGINX_HTPASSWD_PASSWORD_ENCRYPTED
 declare -x NGINX_DOMAIN_REDIRECT
 declare -x NGINX_REDIRECT_TYPE
 declare -x NGINX_STATUS_INCLUDE
+declare -x NGINX_APP_CHOWN_EXCLUSIONS_GLOB
 
 if [ -z "${NGINX_PHP_ALIAS}" ]
 then
@@ -104,6 +105,11 @@ fi
 if [ -z "${NGINX_STATUS_INCLUDE}" ]
 then
   NGINX_STATUS_INCLUDE=""
+fi
+
+if [ -z "${NGINX_APP_CHOWN_EXCLUSIONS_GLOB}" ]
+then
+  NGINX_APP_CHOWN_EXCLUSIONS_GLOB=""
 fi
 
 # Resolve php alias if provided to actual IP.  Needed for HA setups with sidekicks to avoid race condtion errors.

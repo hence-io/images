@@ -16,7 +16,7 @@ RUN apk add --update \
   rm -rf /etc/nginx/* && \
   chown -R $HENCE_APP_USER:$HENCE_APP_USER /var/lib/nginx && \
   chsh -s /bin/bash $HENCE_APP_USER
-#hey
+
 COPY rootfs /
 
 RUN sh $HENCE_PREFIX/install.sh && \
