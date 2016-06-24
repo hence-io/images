@@ -122,6 +122,52 @@ then
   NGINX_PHP_ALIAS=`ping -q -c 1 -t 1 $NGINX_PHP_ALIAS | grep -m 1 PING | cut -d "(" -f2 | cut -d ")" -f1`
 fi
 
+function valid_ip()
+{
+    local  ip=$1
+    local  stat=1
+
+    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        OIFS=$IFS
+        IFS='.'
+        ip=($ip)
+        IFS=$OIFS
+        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
+            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+        stat=$?
+    fi
+    return $stat
+}
+
+counter=0
+
+if [ "${NGINX_PHP_RANCHER_SIDEKICK}" = "1" ]
+then
+  until valid_ip $NGINX_PHP_ALIAS
+  do
+    echo "Trying to get IP of Rancher PHP sidekick..."
+    DEPLOYMENT_UNIT=`curl -s http://rancher-metadata.rancher.internal/latest/self/container/labels/io.rancher.service.deployment.unit`
+    SERVICE_INDEX=`curl -s http://rancher-metadata.rancher.internal/latest/self/container/service_index`
+    SERVICE_NAME=`curl -s http://rancher-metadata.rancher.internal/latest/self/container/service_name`
+    STACK_NAME=`curl -s http://rancher-metadata.rancher.internal/latest/self/container/stack_name`
+    PHP_SIDEKICK_NAME=`curl -s http://rancher-metadata.rancher.internal/latest/containers | grep "${STACK_NAME}_${SERVICE_NAME}" | grep php | grep "\_$SERVICE_INDEX$" | tr '=' "\n" | sed -n '2p'`
+    PHP_SIDEKICK_DEPLOYMENT_UNIT=`curl -s http://rancher-metadata.rancher.internal/latest/containers/$PHP_SIDEKICK_NAME/labels/io.rancher.service.deployment.unit`
+
+    if [ -n "$PHP_SIDEKICK_DEPLOYMENT_UNIT" -a  "$PHP_SIDEKICK_DEPLOYMENT_UNIT" = "$DEPLOYMENT_UNIT" ]
+    then
+      NGINX_PHP_ALIAS=`curl -s http://rancher-metadata.rancher.internal/latest/containers/$PHP_SIDEKICK_NAME/primary_ip`
+      echo "$NGINX_PHP_ALIAS set as php backend service"
+    else
+      counter=$((counter+1))
+      sleep 2
+
+      if [[ "$counter" -gt 30 ]]; then
+        s6-svscanctl -t /var/run/s6/services
+      fi
+    fi
+  done
+fi
+
 chown -R $HENCE_APP_USER:www-data \
   /var/lib/nginx
 

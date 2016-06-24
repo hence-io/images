@@ -21,7 +21,9 @@ if [ ! "$(ls -A /app)" ]; then
 fi
 
 /bin/bash <<'EOF'
-  echo "excluding $NGINX_APP_CHOWN_EXCLUSIONS_GLOB"
+  if [ -n "$NGINX_APP_CHOWN_EXCLUSIONS_GLOB" ]; then
+    echo "excluding $NGINX_APP_CHOWN_EXCLUSIONS_GLOB"
+  fi;
 
   shopt -s extglob
 
