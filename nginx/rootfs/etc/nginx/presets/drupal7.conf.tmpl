@@ -56,6 +56,12 @@ location / {
   index  index.html index.htm index.php;
 }
 
+location = /healthcheck.php {
+  satisfy any;
+  allow 10.42.0.0/16;
+  deny all;
+}
+
 location @rewrite {
   # Some modules enforce no slash (/) at the end of the URL
   # Else this rewrite block wouldn't be needed (GlobalRedirect)
