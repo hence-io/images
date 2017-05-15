@@ -20,6 +20,7 @@ declare -x NGINX_DOMAIN_REDIRECT
 declare -x NGINX_REDIRECT_TYPE
 declare -x NGINX_STATUS_INCLUDE
 declare -x NGINX_APP_CHOWN_EXCLUSIONS_GLOB
+declare -x NGINX_APP_ROOT
 
 if [ -z "${NGINX_PHP_ALIAS}" ]
 then
@@ -60,6 +61,11 @@ fi
 if [ -z "${NGINX_FASTCGI_READ_TIMEOUT}" ]
 then
   NGINX_FASTCGI_READ_TIMEOUT=300
+fi
+
+if [ -z "${NGINX_APP_ROOT}" ]
+then
+NGINX_APP_ROOT=/app
 fi
 
 if [ -z "${NGINX_FASTCGI_IGNORE_CLIENT_ABORT}" ]

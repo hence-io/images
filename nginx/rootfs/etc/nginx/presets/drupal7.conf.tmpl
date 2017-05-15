@@ -1,6 +1,6 @@
 listen 80 default_server;
 
-root /app;
+root ${NGINX_APP_ROOT};
 index index.php index.html index.htm;
 
 disable_symlinks off;
