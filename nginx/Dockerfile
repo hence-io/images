@@ -23,7 +23,7 @@ COPY rootfs /
 RUN sh $HENCE_PREFIX/install.sh && \
     s6-rmrf /etc/s6/services/s6-fdholderd/down
 
-EXPOSE 80 443
+EXPOSE 80 88 443
 
 VOLUME ["/etc/nginx/custom.d", "/app", "$HENCE_APP_VOL_PREFIX/conf", "$HENCE_APP_VOL_PREFIX/logs/nginx-access-logs", "$HENCE_APP_VOL_PREFIX/logs/nginx-error-logs"]
 
