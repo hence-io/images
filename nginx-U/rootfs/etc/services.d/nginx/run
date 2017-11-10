@@ -1,0 +1,39 @@
+#!/usr/bin/with-contenv /bin/bash
+ls -al $HENCE_PREFIX
+ls -al $HENCE_APP_VOL_PREFIX
+set -eb
+source $HENCE_PREFIX/hence-utils.sh
+
+set -- nginx
+
+set -- "$@" -c $HENCE_APP_VOL_PREFIX/conf/nginx.conf
+
+if [ ! "$(ls -A $HENCE_APP_VOL_PREFIX/conf)" ]; then
+  generate_conf_files
+fi
+
+if [ -f ./setup ] && [ ! -f $HENCE_APP_VOL_PREFIX/conf/nginx.conf ]
+then
+  ./setup
+fi
+
+if [ ! "$(ls -A /app)" ]; then
+  cp -r $HENCE_APP_DIR/html.defaults/* /app
+fi
+
+/bin/bash <<'EOF'
+  if [ -n "$NGINX_APP_CHOWN_EXCLUSIONS_GLOB" ]; then
+    echo "excluding $NGINX_APP_CHOWN_EXCLUSIONS_GLOB"
+  fi;
+
+  shopt -s extglob
+
+  chown -Rf $HENCE_APP_USER:$HENCE_APP_USER \
+    $HENCE_APP_VOL_PREFIX/logs/ \
+    $HENCE_APP_VOL_PREFIX/conf/ \
+    /etc/ssl/ \
+    /vendor/ \
+    /app/!($NGINX_APP_CHOWN_EXCLUSIONS_GLOB) || true
+EOF
+
+exec "$@"

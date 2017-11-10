@@ -1,0 +1,20 @@
+listen 80 default_server;
+root /app;
+
+location ~* \ (gif|jpg|png) {
+  expires 30d;
+}
+
+location / {
+  proxy_set_header X-Real-IP ${DOLLAR}remote_addr;
+  proxy_set_header HOST ${DOLLAR}http_host;
+  proxy_set_header X-NginX-Proxy true;
+  proxy_ssl_session_reuse off;
+
+  proxy_pass http://${NGINX_PROXY_HOST}:${NGINX_PROXY_PORT};
+  proxy_redirect off;
+}
+
+location ~ /\.ht {
+deny all;
+}

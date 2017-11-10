@@ -1,0 +1,28 @@
+listen 80 default_server;
+root /app;
+
+location ~* \ (gif|jpg|png|mp3) {
+  expires 30d;
+}
+
+location / {
+  index index.html index.htm;
+  try_files ${DOLLAR}uri ${DOLLAR}uri/ /index.html?${DOLLAR}args;
+}
+
+location /${NGINX_PROXY_PATH}/ {
+  rewrite /${NGINX_PROXY_PATH}/(.*) /${DOLLAR}1  break;
+
+  proxy_set_header X-Real-IP ${DOLLAR}remote_addr;
+  proxy_set_header X-Forwarded-For ${DOLLAR}proxy_add_x_forwarded_for;
+  proxy_set_header Host ${DOLLAR}http_host;
+  proxy_set_header X-NginX-Proxy true;
+  proxy_set_header X-Forwarded-Proto ${DOLLAR}scheme;
+  proxy_ssl_session_reuse off;
+
+  proxy_pass http://${NGINX_PROXY_HOST}:${NGINX_PROXY_PORT};
+}
+
+location ~ /\.ht {
+  deny all;
+}

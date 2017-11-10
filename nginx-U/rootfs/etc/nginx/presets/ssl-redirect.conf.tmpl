@@ -1,0 +1,3 @@
+listen 80 default_server;
+
+return ${NGINX_REDIRECT_TYPE} https://${DOLLAR}host${DOLLAR}request_uri;

@@ -1,0 +1,156 @@
+#!/bin/bash
+
+export DOLLAR="$" # Needed to keep envsubst from destroying nginx variables in conf.tmpl files
+declare -x NGINX_PHP_ALIAS
+declare -x NGINX_PROXY_PATH
+declare -x NGINX_PROXY_HOST
+declare -x NGINX_PROXY_PORT
+declare -x NGINX_FASTCGI_READ_TIMEOUT
+declare -x NGINX_FASTCGI_IGNORE_CLIENT_ABORT
+declare -x NGINX_CLIENT_MAX_BODY_SIZE
+declare -x NGINX_CLIENT_BODY_BUFFER_SIZE
+declare -x NGINX_HTPASSWD_INCLUDE
+declare -x NGINX_HTPASSWD_USER
+declare -x NGINX_HTPASSWD_PASSWORD
+declare -x NGINX_HTPASSWD_PASSWORD_ENCRYPTED
+declare -x NGINX_DOMAIN_REDIRECT
+declare -x NGINX_REDIRECT_TYPE
+declare -x NGINX_STATUS_INCLUDE
+declare -x NGINX_APP_CHOWN_EXCLUSIONS_GLOB
+declare -x NGINX_APP_ROOT
+
+if [ -z "${NGINX_PHP_ALIAS}" ]
+then
+  NGINX_PHP_ALIAS_NOT_PROVIDED=true
+  NGINX_PHP_ALIAS=php
+fi
+
+if [ -z "${NGINX_PROXY_PATH}" ]
+then
+  NGINX_PROXY_PATH=rest/api
+fi
+
+if [ -z "${NGINX_PROXY_HOST}" ]
+then
+  NGINX_PROXY_HOST=localhost
+fi
+
+if [ -z "${NGINX_PROXY_PORT}" ]
+then
+  NGINX_PROXY_PORT=3000
+fi
+
+if [ -z "${NGINX_SSL_INCLUDE}" ]
+then
+  NGINX_SSL_INCLUDE=""
+fi
+
+if [ -z "${NGINX_SSL_CERT_FILE}" ]
+then
+  NGINX_SSL_CERT_FILE=""
+fi
+
+if [ -z "${NGINX_SSL_CERT_KEY_FILE}" ]
+then
+  NGINX_SSL_CERT_KEY_FILE=""
+fi
+
+if [ -z "${NGINX_FASTCGI_READ_TIMEOUT}" ]
+then
+  NGINX_FASTCGI_READ_TIMEOUT=300
+fi
+
+if [ -z "${NGINX_APP_ROOT}" ]
+then
+NGINX_APP_ROOT=/app
+fi
+
+if [ -z "${NGINX_FASTCGI_IGNORE_CLIENT_ABORT}" ]
+then
+  NGINX_FASTCGI_IGNORE_CLIENT_ABORT=off
+fi
+
+if [ -z "${NGINX_CLIENT_MAX_BODY_SIZE}" ]
+then
+  NGINX_CLIENT_MAX_BODY_SIZE=128m
+fi
+
+if [ -z "${NGINX_CLIENT_BODY_BUFFER_SIZE}" ]
+then
+  NGINX_CLIENT_BODY_BUFFER_SIZE=128k
+fi
+
+if [ -z "${NGINX_HTPASSWD_USER}" ]
+then
+  NGINX_HTPASSWD_USER=hence
+fi
+
+if [ -z "${NGINX_HTPASSWD_PASSWORD}" ]
+then
+  NGINX_HTPASSWD_PASSWORD=access
+fi
+
+if [ -z "${NGINX_HTPASSWD_INCLUDE}" ]
+then
+  NGINX_HTPASSWD_INCLUDE=""
+fi
+
+if [ -z "${NGINX_DOMAIN_REDIRECT}" ]
+then
+  NGINX_DOMAIN_REDIRECT=""
+fi
+
+if [ -z "${NGINX_REDIRECT_TYPE}" ]
+then
+  NGINX_REDIRECT_TYPE="302"
+fi
+
+if [ -z "${NGINX_STATUS_INCLUDE}" ]
+then
+  NGINX_STATUS_INCLUDE=""
+fi
+
+if [ -z "${NGINX_APP_CHOWN_EXCLUSIONS_GLOB}" ]
+then
+  NGINX_APP_CHOWN_EXCLUSIONS_GLOB=""
+fi
+
+
+chown -R $HENCE_APP_USER:www-data \
+  /var/lib/nginx
+
+if [ -n "${NGINX_CONFIG_PRESET}" ]
+then
+  sed -i "s/presets\/default/presets\/${NGINX_CONFIG_PRESET}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
+
+  rm -f $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/$NGINX_CONFIG_PRESET.conf
+fi
+
+if [ "${NGINX_HTPASSWD_ENABLE}" = "1" ]
+then
+  NGINX_HTPASSWD_INCLUDE="include $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf;"
+
+  rm -f $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf $HENCE_APP_VOL_PREFIX/conf/.passwd
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/htpasswd.conf
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/.passwd.tmpl > $HENCE_APP_VOL_PREFIX/conf/.passwd
+
+  NGINX_HTPASSWD_PASSWORD_ENCRYPTED=`openssl passwd -apr1 -in $HENCE_APP_VOL_PREFIX/conf/.passwd`
+
+  rm $HENCE_APP_VOL_PREFIX/conf/.htpasswd
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/.htpasswd.tmpl > $HENCE_APP_VOL_PREFIX/conf/.htpasswd
+fi
+
+if [ "${NGINX_STATUS_ENABLE}" = "1" ]
+then
+  NGINX_STATUS_INCLUDE="include $HENCE_APP_VOL_PREFIX/conf/presets/status.conf;"
+
+  rm -f $HENCE_APP_VOL_PREFIX/conf/presets/status.conf
+  envsubst < $HENCE_APP_VOL_PREFIX/conf/presets/status.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/presets/status.conf
+fi
+
+sed -i "s/\$NGINX_STATUS_INCLUDE/${NGINX_STATUS_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
+sed -i "s/\$NGINX_HTPASSWD_INCLUDE/${NGINX_HTPASSWD_INCLUDE}/" $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl
+
+rm -f $HENCE_APP_VOL_PREFIX/conf/nginx.conf
+envsubst < $HENCE_APP_VOL_PREFIX/conf/nginx.conf.tmpl > $HENCE_APP_VOL_PREFIX/conf/nginx.conf

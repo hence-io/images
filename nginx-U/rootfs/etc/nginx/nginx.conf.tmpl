@@ -1,0 +1,65 @@
+daemon off;
+user $HENCE_APP_USER;
+
+error_log stderr warn;
+
+pid /var/run/nginx.pid;
+worker_processes 5;
+
+events {
+  worker_connections 4096;
+}
+
+http {
+  vhost_traffic_status_zone;
+  access_log /dev/stdout;
+  sendfile on;
+
+  include $HENCE_APP_VOL_PREFIX/conf/mime.types;
+  include $HENCE_APP_VOL_PREFIX/conf/fastcgi.conf;
+
+  default_type application/octet-stream;
+
+  tcp_nopush on;
+
+  client_body_temp_path /var/lib/nginx/client_body 1 2;
+  fastcgi_temp_path /var/lib/nginx/fastcgi_temp 1 2;
+
+  client_max_body_size 0;
+
+  include /etc/nginx/custom.d/*.conf;
+  server {
+    $NGINX_STATUS_INCLUDE
+    
+    listen 88;
+
+    location ~ ^/nginx-status {
+        vhost_traffic_status_display;
+        vhost_traffic_status_display_format html;
+    }
+
+    location ~ ^/(status|ping)$ {
+     access_log off;
+     fastcgi_pass ${NGINX_PHP_ALIAS}:9000;
+
+     fastcgi_split_path_info ^(.+?\.php)(|/.*)${DOLLAR};
+     #NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+
+     include $HENCE_APP_VOL_PREFIX/conf/fastcgi.conf;
+     fastcgi_param HTTP_PROXY "";
+     fastcgi_intercept_errors on;
+     fastcgi_read_timeout ${NGINX_FASTCGI_READ_TIMEOUT};
+     fastcgi_ignore_client_abort ${NGINX_FASTCGI_IGNORE_CLIENT_ABORT};
+     client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};
+     client_body_buffer_size ${NGINX_CLIENT_BODY_BUFFER_SIZE};
+    }
+  } 
+
+  server {
+    $NGINX_STATUS_INCLUDE
+    $NGINX_HTPASSWD_INCLUDE
+    $NGINX_SSL_INCLUDE
+    include $HENCE_APP_VOL_PREFIX/conf/presets/default.conf;
+	include /etc/nginx/preset_addon.d/*.conf;
+  }
+}

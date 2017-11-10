@@ -1,0 +1,43 @@
+listen 80 default_server;
+
+root /app;
+index index.php index.html index.htm;
+
+disable_symlinks off;
+
+location / {
+  try_files ${DOLLAR}uri ${DOLLAR}uri/ /index.php?${DOLLAR}args;
+}
+
+location = /favicon.ico {
+  log_not_found off;
+  access_log off;
+}
+
+location = /robots.txt {
+  allow all;
+  log_not_found off;
+  access_log off;
+}
+
+location ~ ^/(?:\.htaccess){
+  deny all;
+}
+
+location ~ /\.ht {
+    deny all;
+}
+
+location ~ \.php(?:${DOLLAR}|/) {
+  try_files ${DOLLAR}uri =404;
+
+  fastcgi_pass ${NGINX_PHP_ALIAS}:9000;
+  fastcgi_index index.php;
+  include /etc/nginx/fastcgi.conf;
+  fastcgi_param HTTP_PROXY "";
+  fastcgi_intercept_errors on;
+  fastcgi_read_timeout ${NGINX_FASTCGI_READ_TIMEOUT};
+  fastcgi_ignore_client_abort ${NGINX_FASTCGI_IGNORE_CLIENT_ABORT};
+  client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};
+  client_body_buffer_size ${NGINX_CLIENT_BODY_BUFFER_SIZE};
+}
